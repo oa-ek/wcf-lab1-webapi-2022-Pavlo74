@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Rozklad.Core;
-using Rozklad.Repository.Dto.CabinetDto;
 using Rozklad.Repository.Repositories;
 using RozkladSchool.Models;
 using System.Diagnostics;
