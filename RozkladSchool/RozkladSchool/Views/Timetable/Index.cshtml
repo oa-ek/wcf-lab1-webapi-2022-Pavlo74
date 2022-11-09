@@ -3,13 +3,11 @@
 @using Rozklad.Repository
 @using Rozklad.Repository.Dto.CabinetDto
 @using Rozklad.Repository.Dto.ClassDto
-<<<<<<< HEAD
+
 
 @model IEnumerable<Timetable>
 
-=======
-@model IEnumerable<Timetable>
->>>>>>> main
+
 @using Rozklad.Repository.Dto.TeacherDto
 @using Rozklad.Repository.Dto.PupilDto
 
@@ -28,15 +26,6 @@
 
 <h1>Розклад уроків</h1>
 
- 
-
-<<<<<<< HEAD
-=======
-<h1>Розклад уроків</h1>
-
- 
-
->>>>>>> main
 <hr />
 
 <table class="table table-bordered">
@@ -50,12 +39,6 @@
                <th>Вчитель</th>      
                      <th>Початок</th>
                      <th>Закінчення</th>
-<<<<<<< HEAD
-
-                    
-=======
-    
->>>>>>> main
         </tr>
     </thead>
     <tbody>
@@ -64,7 +47,7 @@
         {
             <tr>
                
-<<<<<<< HEAD
+
                  <td>@u.Day </td>
                  <td>@u.Lesson.Discipline.DisciplineName  </td>
                  <td>@u.Cabinet.CabinetName  </td>
@@ -76,9 +59,7 @@
                     <a href="/timetable/delete/@u.TimetableId" class="btn btn-danger">Видалити</a>
                 </td>
                    
-=======
 
->>>>>>> main
             </tr>
         }
     </tbody>
