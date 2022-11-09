@@ -1,5 +1,21 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Rozklad.Repository.Dto.ClassDto
+
+@model ClassRoomReadDto
+
 @{
 }
+
+
+<h1>Видалити користувача?</h1>
+<hr />
+
+<p>@Model.ClassRoomId @Model.ClassRoomName</p>
+
+
+<hr />
+<form asp-action="ConfirmDelete" class="col-md-4">
+    @Html.AntiForgeryToken()
+    <input asp-for="ClassRoomId" type="hidden" />
+    <button type="submit" class="btn btn-danger">Видалити користувача!!!</button>
+    <a href="/users/index" class="btn btn-outline-dark">Повернутися до списку / Відмінити</a>
+</form>

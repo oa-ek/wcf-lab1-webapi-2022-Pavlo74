@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 ﻿<div class="container-xxl position-relative bg-white d-flex p-0">
+=======
+﻿@using Rozklad.Core
+@using Rozklad.Repository.Dto.TimetableDto
+@model IEnumerable<Timetable>
+<div class="container-xxl position-relative bg-white d-flex p-0">
+>>>>>>> main
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -87,12 +94,21 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+<<<<<<< HEAD
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
                             <a href="#" class="dropdown-item">Log Out</a>
+=======
+                            <span class="d-none d-lg-inline-flex">Account
+
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <partial name="_LoginPartial" />
+>>>>>>> main
                         </div>
                     </div>
                 </div>
@@ -100,6 +116,7 @@
             <!-- Navbar End -->
 
 
+<<<<<<< HEAD
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
@@ -109,6 +126,54 @@
                 </div>
             </div>
             <!-- Blank End -->
+=======
+            <!-- Recent Sales Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Recent Salse</h6>
+                        <a href="">Show All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>
+                                    <th scope="col">Day</th>
+                                    <th scope="col">Discipline</th>
+                                    <th scope="col">Cabinet</th>
+                                    <th scope="col">Teacher</th>
+                                    <th scope="col">StartTime</th>
+                                    <th scope="col">EndTime</th>
+                                    <th scope="col"><a href="/timetable/AddRozklad" class="btn  btn-primary">Додати дані</a></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var u in Model)
+        {
+                                <tr>
+                                    <td><input class="form-check-input" type="checkbox"></td>
+                                    <td>@u.Day</td>
+                                    <td>@u.Lesson.Discipline.DisciplineName</td>
+                                    <td>@u.Cabinet.CabinetName</td>
+                                    <td>@u.Lesson.Teacher.TeacherName </td>
+                                    <td>@u.TimeStart</td>
+                                    <td>@u.TimeEnd</td>
+                                    <td><a class="btn btn-sm btn-danger" href="/timetable/delete/@u.TimetableId">Видалити</a></td>
+                                </tr>
+                                
+                               }
+                                
+                               
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Sales End -->
+>>>>>>> main
 
 
             <!-- Footer Start -->
@@ -128,7 +193,31 @@
             <!-- Footer End -->
         </div>
         <!-- Content End -->
+<<<<<<< HEAD
 
+=======
+        <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+>>>>>>> main
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
