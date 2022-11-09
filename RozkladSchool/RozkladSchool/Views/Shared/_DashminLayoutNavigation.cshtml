@@ -29,6 +29,7 @@
                     </div>
 
 
+
                     @if (User.IsInRole("Admin"))
             {
                 //<li>
@@ -59,6 +60,7 @@
                   <li>
                      <a class="nav-item nav-link" asp-area="" asp-controller="Pupil" asp-action="Index"><i class="bi bi-people"></i>Pupils</a>
                  </li>
+
             }
             <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>

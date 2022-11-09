@@ -3,7 +3,11 @@
 @using Rozklad.Repository
 @using Rozklad.Repository.Dto.CabinetDto
 @using Rozklad.Repository.Dto.ClassDto
+
+
 @model IEnumerable<Timetable>
+
+
 @using Rozklad.Repository.Dto.TeacherDto
 @using Rozklad.Repository.Dto.PupilDto
 
@@ -15,10 +19,12 @@
     <a href="/days/create" class="btn btn-outline-primary">Додати день</a>
 </div>
 
+<div class="float-end">
+    <a href="/days/create" class="btn btn-outline-primary">Додати день</a>
+</div>
+
 
 <h1>Розклад уроків</h1>
-
- 
 
 <hr />
 
@@ -26,13 +32,13 @@
     <thead>
         <tr>
            
+
             <th>День</th>
             <th>Дисципліна</th>
             <th>Кабінет</th>
                <th>Вчитель</th>      
                      <th>Початок</th>
                      <th>Закінчення</th>
-    
         </tr>
     </thead>
     <tbody>
@@ -41,6 +47,18 @@
         {
             <tr>
                
+
+                 <td>@u.Day </td>
+                 <td>@u.Lesson.Discipline.DisciplineName  </td>
+                 <td>@u.Cabinet.CabinetName  </td>
+                 <td>@u.Lesson.Teacher.TeacherName  </td>
+                 <td>@u.TimeStart  </td>
+                 <td>@u.TimeEnd  </td>
+                 <td>
+                    <a href="/users/edit/@u.TimetableId" class="btn btn-warning">Редагувати</a>
+                    <a href="/timetable/delete/@u.TimetableId" class="btn btn-danger">Видалити</a>
+                </td>
+                   
 
             </tr>
         }
