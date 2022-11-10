@@ -4,8 +4,14 @@
 @{
     Layout = "/Views/Shared/_DashminBlankLayout.cshtml";
 }
-
-
+<meta name='viewport' content='width=device-width,initial-scale=1'/>
+<meta content='true' name='HandheldFriendly'/>
+<meta content='width' name='MobileOptimized'/>
+<meta content='yes' name='apple-mobile-web-app-capable'/>
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
 <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
@@ -24,6 +30,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <meta name='viewport' content='width=device-width,initial-scale=1'/>
+<meta content='true' name='HandheldFriendly'/>
+<meta content='width' name='MobileOptimized'/>
+<meta content='yes' name='apple-mobile-web-app-capable'/>
         @foreach(var u in Model)
         {
             <tr>
@@ -34,12 +44,20 @@
                 <td>
                     @string.Join(", ", u.Roles.Select(x=> x.Name))
                 </td>
+
+
                 <td>
                     <a href="/users/edit/@u.Id" class="btn btn-sm btn-primary">Редагувати</a>
-                    <a href="/users/delete/@u.Id" class="btn btn-sm btn-danger">Видалити</a>
+                    
+
                 </td>
+                <td><a href="/users/delete/@u.Id" class="btn btn-sm btn-danger">Видалити</a></td>
+
+
             </tr>
         }
     </tbody>
-</table>
-<a href="/users/create" class="btn  btn-primary">Додати користувача</a>
+
+<td><a href="/users/create" class="btn  btn-primary">Додати користувача</a></td>
+<td><a href="/Home/Index" class="btn btn-outline-dark">Повернутися на головну</a></td>
+
