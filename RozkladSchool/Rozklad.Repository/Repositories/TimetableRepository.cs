@@ -47,7 +47,7 @@ namespace Rozklad.Repository.Repositories
         {
             var timetableList = _ctx.Timetables.Include(x => x.Lesson).ThenInclude(x => x.Teacher).Include(x => x.Lesson).ThenInclude(x => x.Discipline).Include(x => x.Lesson).ThenInclude(x => x.Pupil).
                Include(x => x.Cabinet). 
-               Include(x => x.Week)./*Where(x=> x.WeekId == 1).*/
+               Include(x => x.Week).Where(x=> x.WeekId == 1).
                Include(x => x.User).ToList();
 
             return timetableList;
