@@ -7,7 +7,14 @@
 
 @model IEnumerable<Timetable>
 
+    @{
+     Layout = "/Views/Shared/_DashminBlankLayout.cshtml";
+}
 
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
 @using Rozklad.Repository.Dto.TeacherDto
 @using Rozklad.Repository.Dto.PupilDto
 
@@ -55,8 +62,9 @@
                  <td>@u.TimeStart  </td>
                  <td>@u.TimeEnd  </td>
                  <td>
-                    <a href="/users/edit/@u.TimetableId" class="btn btn-warning">Редагувати</a>
+                     <a href="/timetable/@u.TimetableId" class="btn btn-warning">Редагувати</a>
                     <a href="/timetable/delete/@u.TimetableId" class="btn btn-danger">Видалити</a>
+                    
                 </td>
                    
 
