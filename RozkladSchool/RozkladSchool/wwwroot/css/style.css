@@ -293,5 +293,10 @@
         width: 970px;
     }
 }
+@media screen and (max-width: 270px) {
+    div. contentblock {
+        width: 500px;
+    }
+}
 
-«Источник: https://siteclinic.ru/blog/technical-aspects/3-sposoba-bystro-adaptirovat-sayt/»
+

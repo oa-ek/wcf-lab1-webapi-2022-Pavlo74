@@ -3,9 +3,14 @@
 @model UserReadDto
 
 @{
+
+     Layout = "/Views/Shared/_DashminBlankLayout.cshtml";
 }
 
-
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
 <h1>Видалити користувача?</h1>
 <hr />
 
@@ -16,6 +21,8 @@
 <form asp-action="ConfirmDelete" class="col-md-4">
     @Html.AntiForgeryToken()
     <input asp-for="Id" type="hidden" />
-    <button type="submit" class="btn btn-danger">Видалити користувача!!!</button>
-    <a href="/users/index" class="btn btn-outline-dark">Повернутися до списку / Відмінити</a>
+    <button type="submit" class="btn btn-danger">Видалити </button>
+           <a href="/users/index" class="btn btn-outline-dark">Повернутися до списку</a>
+        
+
 </form>

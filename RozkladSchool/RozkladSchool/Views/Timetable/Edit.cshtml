@@ -1,76 +1,131 @@
-﻿<html>
-<head>
-   <title>time table</title>
-</head>
-<body bgcolor="skyblue">
-<H1><FONT COLOR="DARKCYAN"><CENTER>COLLEGE TIME TABLE</FONT></H1>
-<table border="2" cellspacing="3" align="center">
-<tr>
- <td align="center">
- <td>8:30-9:30
- <td>9:30-10:30
- <td>10:3-11:30
- <td>11:30-12:30
- <td>12:30-2:00
- <td>2:00-3:00
- <td>3:00-4:00
- <td>4:00-5:00
-</tr>
-<tr>
- <td align="center">MONDAY
- <td align="center">---<td align="center"><font color="blue">SUB1<br>
- <td align="center"><font color="pink">SUB2<br>
- <td align="center"><font color="red">SUB3<br>
- <td rowspan="6"align="center">L<br>U<br>N<br>C<br>H
- <td align="center"><font color="maroon">SUB4<br>
- <td align="center"><font color="brown">SUB5<br>
- <td align="center">counselling class
-</tr>
-<tr>
- <td align="center">TUESDAY
- <td align="center"><font color="blue">SUB1<br>
- <td align="center"><font color="red">SUB2<br>
- <td align="center"><font color="pink">SUB3<br>
- <td align="center">---
- <td align="center"><font color="orange">SUB4<BR>
- <td align="center"><font color="maroon">SUB5<br>
- <td align="center">library
-</tr>
-<tr>
- <td align="center">WEDNESDAY
- <td align="center"><font color="pink">SUB1<br>
- <td align="center"><font color="orange">SUB2<BR>
- <td align="center"><font color="brown">SWA<br>
- <td align="center">---
- <td colspan="3" align="center"><font color="green"> lab
-</tr>
-<tr>
- <td align="center">THURSDAY
- <td align="center">SUB1<br>
- <td align="center"><font color="brown">SUB2<br>
- <td align="center"><font color="orange">SUB3<BR>
- <td align="center">---
- <td align="center"><font color="blue">SUB4<br>
- <td align="center"><font color="red">SUB5<br>
- <td align="center">library
-</tr>
-<tr>
- <td align="center">FRIDAY
- <td align="center"><font color="orange">SUB1<BR>
- <td align="center"><font color="maroon">SUB2<br>
- <td align="center"><font color="blue">SUB3<br>
- <td align="center">---
- <td align="center"><font color="pink">SUB4<br>
- <td align="center"><font color="brown">SUB5<br>
- <td align="center">library
-</tr>
-<tr>
- <td align="center">SATURDAY
- <td align="center"><font color="red">SUB1<br>
- <td colspan="3" align="center">seminar
- <td align="center"><font color="pink">SUB4<br>
- <td align="center"><font color="brown">SUB5<br>
- <td align="center">library
-</tr>
-</body>
-</html>
+﻿@using Rozklad.Core
+@using Rozklad.Repository.Dto.CabinetDto
+@using Rozklad.Repository.Dto.ClassDto
+@using Rozklad.Repository.Dto.DisciplineDto
+@using Rozklad.Repository.Dto.PupilDto
+
+@using Rozklad.Repository.Dto.TeacherDto
+@using Rozklad.Repository.Dto.TimetableDto
+
+
+@model TimetableReadDto
+
+@{
+    var cabinet = ViewBag.Cabinets as IEnumerable<Cabinet>;
+    var clas = ViewBag.Classes as IEnumerable<ClassRoom>;
+    var discipline = ViewBag.Disciplines as IEnumerable<Discipline>;
+    var lesson = ViewBag.Lessons as IEnumerable<Lesson>;
+    var pupil = ViewBag.Pupils as IEnumerable<Pupil>;
+     var teacher = ViewBag.Teachers as IEnumerable<Teacher>;
+      Layout = "/Views/Shared/_DashminBlankLayout.cshtml";
+    
+}
+
+
+<meta name='viewport' content='width=device-width,initial-scale=1'/>
+<meta content='true' name='HandheldFriendly'/>
+<meta content='width' name='MobileOptimized'/>
+<meta content='yes' name='apple-mobile-web-app-capable'/>
+<div class="row">
+    <form asp-action="Edit" class="col-md-4">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="CabinetName" class="control-label">Cabinet</label>
+            <select id="cabinetName" name="cabinetName" class="form-select">
+                @foreach (var u in cabinet)
+                {
+                    var selected = @Model.CabinetName == u.CabinetName ? true : false;
+                    <!option value="@u.CabinetName" @(selected ? "selected" : "" )>@u.CabinetName</!option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DisciplineName" class="control-label">DisciplineName</label>
+            <select id="disciplineName" name="disciplineName" class="form-select">
+                @foreach (var u in lesson)
+                {
+                    var selected = @Model.DisciplineName == u.Discipline.DisciplineName ? true : false;
+                    <!option value="@u.Discipline.DisciplineName" @(selected ? "selected" : "" )>@u.Discipline.DisciplineName</!option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TeacherName" class="control-label">TeacherName</label>
+            <select id="teacherName" name="teacherName" class="form-select">
+                @foreach (var u in teacher)
+                {
+                    var selected = @Model.TeacherName == u.TeacherName ? true : false;
+                    <!option value="@u.TeacherName" @(selected ? "selected" : "" )>@u.TeacherName</!option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ClassRoomName" class="control-label">ClassRoomName</label>
+            <input asp-for="ClassRoomName" class="form-control" />
+            <span asp-validation-for="ClassRoomName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PupilName" class="control-label">PupilName</label>
+            <select id="pupilName" name="pupilName" class="form-select" required>
+                @foreach (var u in pupil)
+                {
+                    var selected = @Model.PupilName == u.PupilName ? true : false;
+                    <!option value="@u.PupilName" @(selected ? "selected" : "" )>@u.PupilName</!option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LessonNumber" class="control-label">LessonNumber</label>
+            <input asp-for="LessonNumber" class="form-control" />
+            <span asp-validation-for="LessonNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Day" class="control-label">Day</label>
+            <input asp-for="Day" class="form-control" />
+            <span asp-validation-for="Day" class="text-danger"></span>
+        </div>
+
+        
+        <div class="form-group">
+            <label asp-for="TimeStart" class="control-label">Початок уроку</label>
+            <input asp-for="TimeStart" class="form-control" />
+            <span asp-validation-for="TimeStart" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TimeEnd" class="control-label">Закінчення уроку</label>
+            <input asp-for="TimeEnd" class="form-control" />
+            <span asp-validation-for="TimeEnd" class="text-danger"></span>
+        </div>
+       
+        <hr />
+
+        <div class="form-group">
+            <button value="Update" class="btn btn-primary" type="submit">Оновити</button>
+        </div>
+    </form>
+</div>
+
+<div class="float-end">
+    <a href="/Home/Index" class="btn btn-outline-primary">Назад до списку</a>
+</div>
+
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(function () {
+            $(".form-select").select2();
+        });
+    </script>
+}

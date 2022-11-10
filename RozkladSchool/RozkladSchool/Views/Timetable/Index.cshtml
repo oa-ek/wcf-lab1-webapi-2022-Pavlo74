@@ -10,18 +10,22 @@
     @{
      Layout = "/Views/Shared/_DashminBlankLayout.cshtml";
 }
+<meta name='viewport' content='width=device-width,initial-scale=1'/>
+<meta content='true' name='HandheldFriendly'/>
+<meta content='width' name='MobileOptimized'/>
+<meta content='yes' name='apple-mobile-web-app-capable'/>
 
-<div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded h-100 p-4">
+
 @using Rozklad.Repository.Dto.TeacherDto
 @using Rozklad.Repository.Dto.PupilDto
 
 
 @{
 }
-
+<div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
 <div class="float-end">
     <a href="/days/create" class="btn btn-outline-primary">Додати день</a>
 </div>
@@ -53,7 +57,10 @@
         @foreach(var u in Model)
         {
             <tr>
-               
+               <meta name='viewport' content='width=device-width,initial-scale=1'/>
+<meta content='true' name='HandheldFriendly'/>
+<meta content='width' name='MobileOptimized'/>
+<meta content='yes' name='apple-mobile-web-app-capable'/>
 
                  <td>@u.Day </td>
                  <td>@u.Lesson.Discipline.DisciplineName  </td>
