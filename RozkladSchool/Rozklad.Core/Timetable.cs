@@ -13,9 +13,13 @@ namespace Rozklad.Core
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TimetableId { get; set; }
-       
+
         public int LessonNumber { get; set; }
-        public string? Day { get; set; }
+        public string Day { get; set; }
+        
+        public int WeekId { get; set; }
+        public Week? Week { get; set; }
+        //public string? Week { get; set; }
         public string? TimeStart { get; set; }
         public string? TimeEnd { get; set; }
         
@@ -26,7 +30,6 @@ namespace Rozklad.Core
      
         public string? UserId { get; set; }
         public User? User { get; set; }
-
 
 
     }

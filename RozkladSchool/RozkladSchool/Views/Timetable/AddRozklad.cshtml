@@ -17,10 +17,14 @@
     var lesson = ViewBag.Lessons as IEnumerable<Lesson>;
     var pupil = ViewBag.Pupils as IEnumerable<Pupil>;
     var teacher = ViewBag.Teachers as IEnumerable<Teacher>;
+    var week = ViewBag.Weeks as IEnumerable<Week>;
     Layout = "/Views/Shared/_DashminBlankLayout.cshtml";
     
 }
-
+<meta name='viewport' content='width=device-width,initial-scale=1'/>
+<meta content='true' name='HandheldFriendly'/>
+<meta content='width' name='MobileOptimized'/>
+<meta content='yes' name='apple-mobile-web-app-capable'/>
 <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
@@ -29,15 +33,17 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @Html.AntiForgeryToken()
         <div class="form-group">
+            
             <label asp-for="CabinetName" class="control-label">Кабінет</label>
             <select asp-for="CabinetName" name="cabinetName" id="cabinetName" class="form-select" required>
                 <option selected disabled>Choose...</option>
                 @foreach (var u in cabinet)
                 {
-                    <option value="@u.CabinetName">@u.CabinetName</option>
+                     <option value="@u.CabinetName">@u.CabinetName</option>
                 }
             </select>
             <span asp-validation-for="CabinetName" class="text-danger"></span>
+            
         </div>
 
    <div class="form-group">
@@ -53,7 +59,17 @@
             <span asp-validation-for="DisciplineName" class="text-danger"></span>
         </div>
        
-
+        <div class="form-group">
+            <label asp-for="WeekName" class="control-label">Тиждень</label>
+            <select asp-for="WeekName" name="weekName" id="weekName" class="form-select" required>
+                <option selected disabled>Choose...</option>
+                @foreach (var u in week)
+                {
+                    <option value="@u.WeekName">@u.WeekName</option>
+                }
+            </select>
+            <span asp-validation-for="WeekName" class="text-danger"></span>
+        </div>
        
 
         <div class="form-group">

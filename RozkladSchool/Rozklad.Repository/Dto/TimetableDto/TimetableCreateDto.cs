@@ -16,6 +16,8 @@ namespace Rozklad.Repository.Dto.TimetableDto
         [Required]
         public string? Day { get; set; }
         [Required]
+        public string? WeekName { get; set; }
+        [Required]
         public string? TimeStart { get; set; }
         [Required]
         public string? TimeEnd { get; set; }

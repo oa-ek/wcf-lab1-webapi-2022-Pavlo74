@@ -195,8 +195,14 @@ namespace Rozklad.Core
                                {
                                    CabinetId = 3,
                                    CabinetName = "MathLab",
+                               },
+
+                               new Cabinet
+                               {
+                                   CabinetId = 4,
+                                   CabinetName = "UkrLab",
                                }
-                                       
+
                );
 
             builder.Entity<Discipline>().HasData(
@@ -210,13 +216,13 @@ namespace Rozklad.Core
                  {
                      DisciplineId = 2,
                      DisciplineName = "Biology"
-                    
+
                  },
                    new Discipline
                    {
                        DisciplineId = 3,
                        DisciplineName = "Math"
-                      
+
                    } 
               );
 
@@ -253,15 +259,36 @@ namespace Rozklad.Core
 
              );
 
+            builder.Entity<Week>().HasData(
+            new Week
+            {
+                WeekId = 1,
+                WeekName = "07.11.2022-11.11.2022"
+                
+            },
+               new Week
+               {
+                   WeekId = 2,
+                   WeekName = "14.11.2022-18.11.2022"
+               },
+                 new Week
+                 {
+                     WeekId = 3,
+                     WeekName = "21.11.2022-25.11.2022"
+                 }
+
+            );
+
             builder.Entity<Timetable>().HasData(
              new Timetable
              {
                  TimetableId = 1,
+                 Day = "Monday", 
 
-                 Day = "Tuesday",
+                 WeekId = 1,
                  LessonNumber = 1,
-                 TimeStart = "10:00",
-                 TimeEnd = "10:45",
+                 TimeStart = "9:00",
+                 TimeEnd = "9:45",
                  CabinetId = 1,
                  LessonId = 1,
                  UserId = ADMIN_ID
@@ -271,11 +298,11 @@ namespace Rozklad.Core
              new Timetable
              {
                  TimetableId = 2,
-                
-                 Day = "Tuesday",
+                 Day = "Monday",
+                 WeekId = 2,
                  LessonNumber = 2,
-                 TimeStart = "10:00",
-                 TimeEnd = "10:45",
+                 TimeStart = "9:00",
+                 TimeEnd = "9:45",
                  CabinetId = 2,
                  LessonId = 2,
                  UserId = ADMIN_ID
@@ -286,11 +313,11 @@ namespace Rozklad.Core
               new Timetable
               {
                   TimetableId = 3,
-                 
                   LessonNumber =3,
-                  Day = "Wednesday",
-                  TimeStart = "11:00",
-                  TimeEnd = "11:45",
+                  Day = "Monday",
+                  WeekId = 3,
+                  TimeStart = "9:00",
+                  TimeEnd = "9:45",
                   CabinetId = 3,
                   LessonId = 3,
                   UserId = ADMIN_ID

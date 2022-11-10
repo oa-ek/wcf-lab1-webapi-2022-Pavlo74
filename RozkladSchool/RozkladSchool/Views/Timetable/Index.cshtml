@@ -13,57 +13,60 @@
 
 
 @{
+     Layout = "/Views/Shared/_DashminBlankLayout.cshtml";
 }
-
-<div class="float-end">
-    <a href="/days/create" class="btn btn-outline-primary">Додати день</a>
-</div>
-
-<div class="float-end">
-    <a href="/days/create" class="btn btn-outline-primary">Додати день</a>
-</div>
-
-
-<h1>Розклад уроків</h1>
-
-<hr />
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-           
-
-            <th>День</th>
-            <th>Дисципліна</th>
-            <th>Кабінет</th>
-               <th>Вчитель</th>      
-                     <th>Початок</th>
-                     <th>Закінчення</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @foreach(var u in Model)
+<meta name='viewport' content='width=device-width,initial-scale=1'/>
+<meta content='true' name='HandheldFriendly'/>
+<meta content='width' name='MobileOptimized'/>
+<meta content='yes' name='apple-mobile-web-app-capable'/>
+<!-- Recent Sales Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Recent Salse</h6>
+                        <a href="">Show All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>
+                                    <th scope="col">Day</th>
+                                     
+                                    <th scope="col">Discipline</th>
+                                    <th scope="col">Cabinet</th>
+                                    <th scope="col">Teacher</th>
+                                    <th scope="col">StartTime</th>
+                                    <th scope="col">EndTime</th>
+                                    <th scope="col"><a href="/timetable/AddRozklad" class="btn  btn-primary">Додати дані</a></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var u in Model)
         {
-            <tr>
-               
-
-                 <td>@u.Day </td>
-                 <td>@u.Lesson.Discipline.DisciplineName  </td>
-                 <td>@u.Cabinet.CabinetName  </td>
-                 <td>@u.Lesson.Teacher.TeacherName  </td>
-                 <td>@u.TimeStart  </td>
-                 <td>@u.TimeEnd  </td>
-                 <td>
-                    <a href="/users/edit/@u.TimetableId" class="btn btn-warning">Редагувати</a>
-                    <a href="/timetable/delete/@u.TimetableId" class="btn btn-danger">Видалити</a>
-                </td>
-                   
-
-            </tr>
-        }
-    </tbody>
-</table>
+                                <tr>
+                                    <td><input class="form-check-input" type="checkbox"></td>
+                                    <td>@u.Day</td>
+                                    
+                                    <td>@u.Lesson.Discipline.DisciplineName</td>
+                                    <td>@u.Cabinet.CabinetName</td>
+                                    <td>@u.Lesson.Teacher.TeacherName </td>
+                                    <td>@u.TimeStart</td>
+                                    <td>@u.TimeEnd</td>
+                                    <td><a class="btn btn-sm btn-danger" href="/timetable/delete/@u.TimetableId">Видалити</a></td>
+                                </tr>
+                                
+                               }
+                                
+                               
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Sales End -->
 
            
 
