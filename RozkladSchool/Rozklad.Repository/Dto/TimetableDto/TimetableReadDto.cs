@@ -22,7 +22,9 @@ namespace Rozklad.Repository.Dto.TimetableDto
         //public string? IconPath { get; set; }
        
         public string? CabinetName { get; set; }
-        
+
+        public string? WeekName { get; set; }
+
         public string? DisciplineName { get; set; }
     
         public string? TeacherName { get; set; }

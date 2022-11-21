@@ -14,25 +14,27 @@ namespace RozkladSchool.Controllers
     public class TimetableController : Controller
 
     {
-
+        
         private readonly ILogger<TimetableController> _logger;
         private readonly TimetableRepository _timetableRepository;
         private readonly ClassRoomRepository _classRoomRepository;
         private readonly CabinetRepository _cabinetRepository;
         private readonly DisciplineRepository _disciplineRepository;
         private readonly TeacherRepository _teacherRepository;
+        private readonly WeekRepository _weekRepository;
         private readonly PupilRepository _pupilRepository;
         private readonly LessonRepository _lessonRepository;
         private readonly UsersRepository _usersRepository;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         public TimetableController(ILogger<TimetableController> logger, TimetableRepository timetableRepository, ClassRoomRepository classRoomRepository, CabinetRepository cabinetRepository,
-            DisciplineRepository disciplineRepository, TeacherRepository teacherRepository, UsersRepository usersRepository, PupilRepository pupilRepository, UserManager<User> userManager, SignInManager<User> signInManager, LessonRepository lessonRepository)
+            DisciplineRepository disciplineRepository, TeacherRepository teacherRepository, WeekRepository weekRepository, UsersRepository usersRepository, PupilRepository pupilRepository, UserManager<User> userManager, SignInManager<User> signInManager, LessonRepository lessonRepository)
         {
             _logger = logger;
             _timetableRepository = timetableRepository;
             _classRoomRepository = classRoomRepository;
             _cabinetRepository = cabinetRepository;
+            _weekRepository = weekRepository;
             _disciplineRepository = disciplineRepository;
             _teacherRepository = teacherRepository;
             _pupilRepository = pupilRepository;
@@ -55,13 +57,14 @@ namespace RozkladSchool.Controllers
             ViewBag.Teachers = _teacherRepository.GetTeachers();
             ViewBag.Pupils = _pupilRepository.GetPupils();
             ViewBag.Lessons = _lessonRepository.GetLessons();
+            ViewBag.Weeks = _weekRepository.GetWeeks();
             return View();
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> AddRozklad(TimetableCreateDto timetableDto, string cabinetName, string className,
-            string teacherName, string lessonName, string disciplineName, string pupilName)
+            string teacherName, string lessonName, string disciplineName, string pupilName, string weekName)
         {
             ViewBag.Cabinets = _cabinetRepository.GetCabinets();
             ViewBag.Classes = _classRoomRepository.GetClasses();
@@ -69,6 +72,7 @@ namespace RozkladSchool.Controllers
             ViewBag.Teachers = _teacherRepository.GetTeachers();
             ViewBag.Pupils = _pupilRepository.GetPupils();
             ViewBag.Lessons = _lessonRepository.GetLessons();
+            ViewBag.Weeks = _weekRepository.GetWeeks();
 
 
 
@@ -77,6 +81,13 @@ namespace RozkladSchool.Controllers
             {
                 cabinet = new Cabinet() { CabinetName = cabinetName };
                 cabinet = await _cabinetRepository.AddCabinetAsync(cabinet);
+            }
+
+            var week = _weekRepository.GetWeekByName(weekName);
+            if (week == null)
+            {
+                week = new Week() { WeekName = weekName };
+                week = await _weekRepository.AddWeekAsync(week);
             }
 
             var discipline = _disciplineRepository.GetDisciplineByName(disciplineName);
@@ -118,6 +129,7 @@ namespace RozkladSchool.Controllers
                 Cabinet = cabinet,
                 Lesson = lesson,
                 LessonNumber = timetableDto.LessonNumber,
+                Week = week,
                 Day = timetableDto.Day,
                 TimeStart = timetableDto.TimeStart,
                 TimeEnd = timetableDto.TimeEnd,
@@ -135,6 +147,7 @@ namespace RozkladSchool.Controllers
             ViewBag.Cabinets = _cabinetRepository.GetCabinets();
             ViewBag.Classes = _classRoomRepository.GetClasses();
             ViewBag.Disciplines = _disciplineRepository.GetDisciplines();
+            ViewBag.Weeks = _weekRepository.GetWeeks();
             ViewBag.Teachers = _teacherRepository.GetTeachers();
             ViewBag.Pupils = _pupilRepository.GetPupils();
             ViewBag.Lessons = _lessonRepository.GetLessons();
@@ -144,17 +157,18 @@ namespace RozkladSchool.Controllers
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(TimetableReadDto timetableDto, string cabinetName, string className,
-            string teacherName, string lessonName, string disciplineName, string pupilName)
+            string teacherName, string lessonName, string disciplineName, string pupilName, string weekName)
         {
             //if (ModelState.IsValid)
             //{
-            await _timetableRepository.UpdateAsync(timetableDto, cabinetName, lessonName, disciplineName, teacherName, className);
+            await _timetableRepository.UpdateAsync(timetableDto, cabinetName, lessonName, disciplineName, teacherName, className, weekName);
             return RedirectToAction();
             //}
             ViewBag.Cabinets = _cabinetRepository.GetCabinets();
             ViewBag.Classes = _classRoomRepository.GetClasses();
             ViewBag.Disciplines = _disciplineRepository.GetDisciplines();
             ViewBag.Teachers = _teacherRepository.GetTeachers();
+            ViewBag.Weeks = _weekRepository.GetWeeks();
             ViewBag.Pupils = _pupilRepository.GetPupils();
             ViewBag.Lessons = _lessonRepository.GetLessons();
             return View(timetableDto);

@@ -21,6 +21,7 @@ namespace Rozklad.Repository.Repositories
             await _ctx.SaveChangesAsync();
             return _ctx.Timetables.Include(x => x.Lesson).ThenInclude(x => x.Teacher).Include(x => x.Lesson).ThenInclude(x => x.Discipline).Include(x => x.Lesson).ThenInclude(x => x.Pupil).
                Include(x => x.Cabinet).
+               Include(x => x.Week).
                Include(x => x.User).
 
                FirstOrDefault(x => x.Lesson.LessonName == timetable.Lesson.LessonName);
@@ -34,6 +35,7 @@ namespace Rozklad.Repository.Repositories
                Include(x => x.Lesson).
                ThenInclude(x => x.Pupil).
                Include(x => x.Cabinet).
+               Include(x => x.Week).
                Include(x => x.Lesson).
                ThenInclude(x => x.Pupil).
                ThenInclude(x => x.ClassRoom).
@@ -45,6 +47,7 @@ namespace Rozklad.Repository.Repositories
         {
             var timetableList = _ctx.Timetables.Include(x => x.Lesson).ThenInclude(x => x.Teacher).Include(x => x.Lesson).ThenInclude(x => x.Discipline).Include(x => x.Lesson).ThenInclude(x => x.Pupil).
                Include(x => x.Cabinet).
+               Include(x => x.Week).
                Include(x => x.User).ToList();
 
             return timetableList;
@@ -54,6 +57,7 @@ namespace Rozklad.Repository.Repositories
         {
             var v = await _ctx.Timetables.Include(x => x.Lesson).ThenInclude(x => x.Teacher).Include(x => x.Lesson).ThenInclude(x => x.Discipline).Include(x => x.Lesson).ThenInclude(x => x.Pupil).
                Include(x => x.Cabinet).
+               Include(x => x.Week).
                Include(x => x.User).FirstAsync(x => x.TimetableId == id);
 
             var timetableDto = new TimetableReadDto
@@ -68,6 +72,7 @@ namespace Rozklad.Repository.Repositories
                 TeacherName = v.Lesson.Teacher.TeacherName,
                 LessonName = v.Lesson?.LessonName,
                 CabinetName = v.Cabinet?.CabinetName,
+                WeekName = v.Week?.WeekName,
                 UserId = v.UserId
             };
             return timetableDto;
@@ -76,14 +81,18 @@ namespace Rozklad.Repository.Repositories
       
 
         public async Task UpdateAsync(TimetableReadDto timetableDto, string cabinetName, string disciplineName,
-           string classRoomName, string teacherName, string pupilName)
+           string classRoomName, string teacherName, string pupilName, string weekName)
         {
             var timetable = _ctx.Timetables.Include(x => x.Lesson).ThenInclude(x => x.Teacher).Include(x => x.Lesson).ThenInclude(x => x.Discipline).Include(x => x.Lesson).ThenInclude(x => x.Pupil).
                  Include(x => x.Cabinet).
+                 Include(x => x.Week).
                  Include(x => x.User).FirstOrDefault(x => x.TimetableId == timetableDto.TimetableId);
 
             if (timetable.Cabinet.CabinetName != cabinetName)
                 timetable.Cabinet = _ctx.Cabinets.FirstOrDefault(x => x.CabinetName == cabinetName);
+
+            if (timetable.Week.WeekName != weekName)
+                timetable.Week = _ctx.Weeks.FirstOrDefault(x => x.WeekName == weekName);
 
             if (timetable.Lesson.Teacher.TeacherName != teacherName)
                 timetable.Lesson.Teacher = _ctx.Teachers.FirstOrDefault(x => x.TeacherName == teacherName);

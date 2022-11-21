@@ -10,6 +10,10 @@ namespace Rozklad.Core
 {
     public static class RozkladDbContextExtension
     {
+        private static readonly string[] Summaries = new[]
+       {
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Fraday"
+    };
         public static void Seed(this ModelBuilder builder)
         {
             string ADMIN_ROLE_ID = Guid.NewGuid().ToString();
@@ -98,7 +102,28 @@ namespace Rozklad.Core
 
 
 
-           
+
+
+
+            builder.Entity<Week>().HasData(
+             new Week
+             {
+                 WeekId = 1,
+                 WeekName = "21.11.2022 - 25.11.2022",
+
+             },
+
+                       new Week
+                       {
+                           WeekId = 2,
+                           WeekName = "28.11.2022 - 02.12.2022",
+                       },
+                        new Week
+                        {
+                            WeekId = 3,
+                            WeekName = "05.12.2022 - 09.12.2022",
+                        }
+             );
 
             builder.Entity<Teacher>().HasData(
              new Teacher
@@ -185,18 +210,28 @@ namespace Rozklad.Core
                {
                   CabinetId = 1,
                   CabinetName="GeographyLab",
+                  RoomCapacity = 30
                },
                        new Cabinet
                        {
                            CabinetId = 2,
                            CabinetName = "BiologyLab",
+                           RoomCapacity = 28
                        },
                                new Cabinet
                                {
                                    CabinetId = 3,
                                    CabinetName = "MathLab",
+                                   RoomCapacity = 31
+                               },
+                               new Cabinet
+                               {
+                                   CabinetId = 4,
+                                   CabinetName = "UkrLab",
+                                   RoomCapacity = 29
                                }
-                                       
+
+
                );
 
             builder.Entity<Discipline>().HasData(
@@ -217,7 +252,14 @@ namespace Rozklad.Core
                        DisciplineId = 3,
                        DisciplineName = "Math"
                       
-                   } 
+                   },
+
+                   new Discipline
+                   {
+                       DisciplineId = 4,
+                       DisciplineName = "Ukr"
+
+                   }
               );
 
 
@@ -253,12 +295,15 @@ namespace Rozklad.Core
 
              );
 
+
+
             builder.Entity<Timetable>().HasData(
              new Timetable
              {
-                 TimetableId = 1,
 
-                 Day = "Tuesday",
+                 TimetableId = 1,
+                 WeekId = 1,
+                 Day = Summaries[Random.Shared.Next(Summaries.Length)],
                  LessonNumber = 1,
                  TimeStart = "10:00",
                  TimeEnd = "10:45",
@@ -271,8 +316,8 @@ namespace Rozklad.Core
              new Timetable
              {
                  TimetableId = 2,
-                
-                 Day = "Tuesday",
+                 WeekId = 2,
+                 Day = Summaries[Random.Shared.Next(Summaries.Length)],
                  LessonNumber = 2,
                  TimeStart = "10:00",
                  TimeEnd = "10:45",
@@ -286,9 +331,9 @@ namespace Rozklad.Core
               new Timetable
               {
                   TimetableId = 3,
-                 
+                  WeekId = 3,
                   LessonNumber =3,
-                  Day = "Wednesday",
+                  Day = Summaries[Random.Shared.Next(Summaries.Length)],
                   TimeStart = "11:00",
                   TimeEnd = "11:45",
                   CabinetId = 3,

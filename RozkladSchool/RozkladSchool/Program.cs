@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Rozklad.Core;
+using Rozklad.Infrastructure;
 using Rozklad.Repository;
 using Rozklad.Repository.Repositories;
 using System.Text.Json.Serialization;
@@ -37,19 +38,32 @@ builder.Services.AddTransient<UsersRepository>();
 builder.Services.AddTransient<ClassRoomRepository>();
 builder.Services.AddTransient<LessonRepository>();
 builder.Services.AddTransient<CabinetRepository>();
+builder.Services.AddScoped<CabinetAPIRepository>();
 builder.Services.AddTransient<TeacherRepository>();
 builder.Services.AddTransient<DisciplineRepository>();
 builder.Services.AddTransient<PupilRepository>();
 
 builder.Services.AddTransient<TimetableRepository>();
 
+builder.Services.AddAutoMapper(typeof(AppAutoMapper).Assembly);
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+
+        Version = "v1",
+
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
