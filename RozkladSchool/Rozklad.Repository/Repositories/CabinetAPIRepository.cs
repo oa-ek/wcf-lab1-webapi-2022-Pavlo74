@@ -26,5 +26,10 @@ namespace Rozklad.Repository.Repositories
             return _mapper.Map<IEnumerable<CabinetReadDto>>(await _ctx.Cabinets.ToListAsync());
 
         }
+
+        //public async Task<IEnumerable<CabinetReadDto>> GetItemAsync(string name)
+        //{
+           // return _ctx.Cabinets.FirstOrDefault(x => x.CabinetName == name);
+        //}
     }
 }

@@ -20,6 +20,6 @@ namespace Rozklad.Repository.Dto.LessonDto
         public int PupilId { get; set; }
         public Pupil? Pupil { get; set; }
 
-        public virtual ICollection<Timetable>? Timetables { get; set; }
+        //public virtual ICollection<Timetable>? Timetables { get; set; }
     }
 }

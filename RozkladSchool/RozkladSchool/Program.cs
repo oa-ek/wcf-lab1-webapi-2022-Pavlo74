@@ -4,10 +4,8 @@ using Rozklad.Core;
 using Rozklad.Infrastructure;
 using Rozklad.Repository;
 using Rozklad.Repository.Repositories;
+using System.Reflection;
 using System.Text.Json.Serialization;
-
-
-//using RozkladSchool.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +37,9 @@ builder.Services.AddTransient<ClassRoomRepository>();
 builder.Services.AddTransient<LessonRepository>();
 builder.Services.AddTransient<CabinetRepository>();
 builder.Services.AddScoped<CabinetAPIRepository>();
+builder.Services.AddScoped<TimetableAPIRepository>();
+builder.Services.AddScoped<LessonAPIRepository>();
+builder.Services.AddScoped<UsersAPIRepository>();
 builder.Services.AddTransient<TeacherRepository>();
 builder.Services.AddTransient<DisciplineRepository>();
 builder.Services.AddTransient<PupilRepository>();
@@ -49,13 +50,26 @@ builder.Services.AddAutoMapper(typeof(AppAutoMapper).Assembly);
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
 
         Version = "v1",
+        Title = "Adding an API to our Schedule project",
+        Description = "Education project with KN3, Ostroh Academy",
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        {
+            Email = "pavlo.koshubinskyi@oa.edu.ua",
+            Name = "Pavlo Koshubinskyi"
+        }
 
     });
+
+   var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";//через іксемель коментарі документується код
+   var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
 });
+
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
