@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Rozklad.Core;
+using Rozklad.Repository.Dto.ClassDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,16 @@ namespace Rozklad.Repository.Repositories
     public class ClassRoomRepository
     {
         private readonly RozkladContext _ctx;
-        public ClassRoomRepository(RozkladContext ctx)
+        private readonly IMapper _mapper;
+        public ClassRoomRepository(RozkladContext ctx, IMapper mapper)
         {
             _ctx = ctx;
+            _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<ClassRoomReadDto>> GetListAsync()
+        {
+            return _mapper.Map<IEnumerable<ClassRoomReadDto>>(await _ctx.ClassRooms.ToListAsync());
         }
 
         public async Task<ClassRoom> AddClassAsync(ClassRoom clas)

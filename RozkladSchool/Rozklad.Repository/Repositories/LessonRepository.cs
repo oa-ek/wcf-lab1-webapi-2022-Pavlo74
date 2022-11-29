@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Rozklad.Core;
 using Rozklad.Repository.Dto.LessonDto;
 using System;
@@ -12,10 +13,18 @@ namespace Rozklad.Repository.Repositories
     public class LessonRepository
     {
         private readonly RozkladContext _ctx;
-        public LessonRepository(RozkladContext ctx)
+        private readonly IMapper _mapper;
+        public LessonRepository(RozkladContext ctx, IMapper mapper)
         {
             _ctx = ctx;
+            _mapper = mapper;
         }
+
+        public async Task<IEnumerable<LessonReadDto>> GetListAsync()
+        {
+            return _mapper.Map<IEnumerable<LessonReadDto>>(await _ctx.Lessons.Include(x => x.Discipline).Include(x => x.Teacher).Include(x => x.Pupil).ToListAsync());
+        }
+
         public async Task<Lesson> AddLessonAsync(Lesson lesson)
         {
             _ctx.Lessons.Add(lesson);

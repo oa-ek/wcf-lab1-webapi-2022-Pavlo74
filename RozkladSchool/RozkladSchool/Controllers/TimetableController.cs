@@ -12,9 +12,7 @@ using System.Diagnostics;
 namespace RozkladSchool.Controllers
 {
     public class TimetableController : Controller
-
     {
-        
         private readonly ILogger<TimetableController> _logger;
         private readonly TimetableRepository _timetableRepository;
         private readonly ClassRoomRepository _classRoomRepository;

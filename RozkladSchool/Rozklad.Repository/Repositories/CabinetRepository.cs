@@ -1,4 +1,6 @@
-﻿using Rozklad.Core;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Rozklad.Core;
 using Rozklad.Repository.Dto.CabinetDto;
 using System;
 using System.Collections.Generic;
@@ -11,9 +13,17 @@ namespace Rozklad.Repository.Repositories
  public class CabinetRepository
     {
         private readonly RozkladContext _ctx;
-        public CabinetRepository(RozkladContext ctx)
+        private readonly IMapper _mapper;
+        public CabinetRepository(RozkladContext ctx, IMapper mapper)
         {
             _ctx = ctx;
+            _mapper = mapper;
+        }
+        
+        public async Task<IEnumerable<CabinetReadDto>> GetListAsync()
+        {
+            return _mapper.Map<IEnumerable<CabinetReadDto>>(await _ctx.Cabinets.ToListAsync());
+
         }
 
         public async Task<Cabinet> AddCabinetAsync(Cabinet cabinet)

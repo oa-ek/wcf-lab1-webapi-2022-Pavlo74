@@ -14,7 +14,7 @@ namespace RozkladSchool.Controllers
             _logger = logger;
             _cabinetRepository = cabinetRepository;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             return View(_cabinetRepository.GetCabinets());

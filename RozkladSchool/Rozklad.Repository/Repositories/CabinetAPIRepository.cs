@@ -27,9 +27,20 @@ namespace Rozklad.Repository.Repositories
 
         }
 
+        public Cabinet GetCabinetByName(string name)
+        {
+            return _ctx.Cabinets.FirstOrDefault(x => x.CabinetName == name);
+        }
+
+        public async Task<Cabinet> AddCabinetAsync(Cabinet cabinet)
+        {
+            _ctx.Cabinets.Add(cabinet);
+            await _ctx.SaveChangesAsync();
+            return _ctx.Cabinets.FirstOrDefault(x => x.CabinetName == cabinet.CabinetName);
+        }
         //public async Task<IEnumerable<CabinetReadDto>> GetItemAsync(string name)
         //{
-           // return _ctx.Cabinets.FirstOrDefault(x => x.CabinetName == name);
+        // return _ctx.Cabinets.FirstOrDefault(x => x.CabinetName == name);
         //}
     }
 }

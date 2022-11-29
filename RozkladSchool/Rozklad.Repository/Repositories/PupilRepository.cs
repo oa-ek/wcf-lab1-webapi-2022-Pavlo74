@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Rozklad.Core;
 using Rozklad.Repository.Dto.PupilDto;
 using System;
@@ -12,15 +13,23 @@ namespace Rozklad.Repository.Repositories
     public class PupilRepository
     {
         private readonly RozkladContext _ctx;
-        public PupilRepository(RozkladContext ctx)
+        private readonly IMapper _mapper;
+        public PupilRepository(RozkladContext ctx, IMapper mapper)
         {
             _ctx = ctx;
+            _mapper = mapper;
         }
         public async Task<Pupil> AddPupilAsync(Pupil pupil)
         {
             _ctx.Pupils.Add(pupil);
             await _ctx.SaveChangesAsync();
             return _ctx.Pupils.FirstOrDefault(x => x.PupilName == pupil.PupilName);
+        }
+
+        public async Task<IEnumerable<PupilReadDto>> GetListAsync()
+        {
+            return _mapper.Map<IEnumerable<PupilReadDto>>(await _ctx.Pupils.ToListAsync());
+
         }
 
         public Pupil GetPupil(int id)

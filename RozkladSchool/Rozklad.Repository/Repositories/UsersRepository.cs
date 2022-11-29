@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Rozklad.Core;
 using Rozklad.Repository.Dto;
@@ -10,14 +11,22 @@ namespace Rozklad.Repository
         private readonly RozkladContext _ctx;
         private readonly UserManager<User> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IMapper _mapper;
 
         public UsersRepository(RozkladContext ctx,
             UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             _ctx = ctx;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<UserReadDto>> GetListAsync()
+        {
+            return _mapper.Map<IEnumerable<UserReadDto>>(await _ctx.Users.ToListAsync());
+
         }
 
         public async Task<User> CreateUserAsync(string? firstName, string? lastName, string? password, string? email)

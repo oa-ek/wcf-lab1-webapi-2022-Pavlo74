@@ -1,4 +1,7 @@
-﻿using Rozklad.Core;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Rozklad.Core;
+using Rozklad.Repository.Dto.LessonDto;
 using Rozklad.Repository.Dto.TeacherDto;
 using System;
 using System.Collections.Generic;
@@ -11,9 +14,17 @@ namespace Rozklad.Repository.Repositories
    public class TeacherRepository
     {
         private readonly RozkladContext _ctx;
-        public TeacherRepository(RozkladContext ctx)
+        private readonly IMapper _mapper;
+        public TeacherRepository(RozkladContext ctx, IMapper mapper)
         {
             _ctx = ctx;
+            _mapper = mapper;
+
+         }
+
+        public async Task<IEnumerable<TeacherReadDto>> GetListAsync()
+        {
+            return _mapper.Map<IEnumerable<TeacherReadDto>>(await _ctx.Teachers.ToListAsync());
         }
 
         public async Task<Teacher> AddTeacherAsync(Teacher teacher)

@@ -24,7 +24,13 @@ namespace Rozklad.Repository.Repositories
         public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
         {
             return _mapper.Map<IEnumerable<TimetableReadDto>>(await _ctx.Timetables.ToListAsync());
+        }
 
+        public async Task<IEnumerable<TimetableCreateDto>> AddTimetableAsync(Timetable timetable)
+        {
+            _ctx.Timetables.Add(timetable);
+            await _ctx.SaveChangesAsync();
+            return _mapper.Map<IEnumerable<TimetableCreateDto>>(await _ctx.Timetables.ToListAsync()); 
         }
     }
 }

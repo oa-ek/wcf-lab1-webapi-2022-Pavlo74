@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Rozklad.Core;
 using Rozklad.Repository.Dto.DisciplineDto;
 using System;
@@ -13,9 +14,17 @@ namespace Rozklad.Repository.Repositories
     {
 
         private readonly RozkladContext _ctx;
-        public DisciplineRepository(RozkladContext ctx)
+        private readonly IMapper _mapper;
+        public DisciplineRepository(RozkladContext ctx, IMapper mapper)
         {
             _ctx = ctx;
+            _mapper = mapper;
+
+         }
+
+        public async Task<IEnumerable<DisciplineReadDto>> GetListAsync()
+        {
+            return _mapper.Map<IEnumerable<DisciplineReadDto>>(await _ctx.Disciplines.ToListAsync());
         }
 
         public async Task<Discipline> AddDisciplineAsync(Discipline discipline)
