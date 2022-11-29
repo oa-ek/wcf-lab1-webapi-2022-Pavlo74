@@ -26,11 +26,23 @@ namespace Rozklad.Repository.Repositories
 
         }
 
+        /*public async Task<string> CreateAsync(CabinetCreateDto obj)
+        {
+            var data = await _ctx.Cabinets.AddAsync(_mapper.Map<Cabinet>(obj));
+            await _ctx.SaveChangesAsync();
+            return data.Entity.CabinetName;
+        }*/
+
         public async Task<Cabinet> AddCabinetAsync(Cabinet cabinet)
         {
             _ctx.Cabinets.Add(cabinet);
             await _ctx.SaveChangesAsync();
             return _ctx.Cabinets.FirstOrDefault(x => x.CabinetName == cabinet.CabinetName);
+        }
+
+        public async Task<CabinetReadDto> GetAsync(int id)
+        {
+            return _mapper.Map<CabinetReadDto>(await _ctx.Cabinets.FirstAsync(x => x.CabinetId == id));
         }
 
         public List<Cabinet> GetCabinets()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Rozklad.Core;
 using Rozklad.Repository.Dto.CabinetDto;
 using Rozklad.Repository.Repositories;
 
@@ -33,7 +34,22 @@ namespace Rozklad.WebAPI.Controllers
             return await cabinetApiRepository.GetListAsync();
         }
 
-     }
+        /*[HttpPost]
+        public async Task<string> CreateAsync(CabinetCreateDto cab)
+        {
+            return await cabinetApiRepository.CreateAsync(cab);
+        }*/
+        /*[HttpPost]
+        public async Task<Cabinet> AddCabinetAsync(Cabinet cab)
+        {
+            return await cabinetApiRepository.AddCabinetAsync(cab);
+        }*/
+
+
+
+
+
+    }
 
     }
 

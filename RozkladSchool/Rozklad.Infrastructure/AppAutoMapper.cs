@@ -19,6 +19,9 @@ namespace Rozklad.Infrastructure
             CreateMap<CabinetReadDto, Cabinet>();
             CreateMap<Cabinet, CabinetReadDto>();
 
+            CreateMap<CabinetCreateDto, Cabinet>();
+            CreateMap<Cabinet, CabinetCreateDto>();
+
             CreateMap<ClassRoomReadDto, ClassRoom>();
             CreateMap<ClassRoom, ClassRoomReadDto>();
 
