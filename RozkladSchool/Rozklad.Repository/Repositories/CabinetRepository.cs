@@ -26,12 +26,16 @@ namespace Rozklad.Repository.Repositories
 
         }
 
-        /*public async Task<string> CreateAsync(CabinetCreateDto obj)
+        public async Task<Cabinet> AddCabinetByDtoAsync(CabinetCreateDto cabDto)
         {
-            var data = await _ctx.Cabinets.AddAsync(_mapper.Map<Cabinet>(obj));
+            var cab = new Cabinet();
+            cab.CabinetName = cabDto.Name;
+            cab.RoomCapacity = cabDto.RoomCapacity;
+            _ctx.Cabinets.Add(cab);
             await _ctx.SaveChangesAsync();
-            return data.Entity.CabinetName;
-        }*/
+            return _ctx.Cabinets.FirstOrDefault(x => x.CabinetName == cab.CabinetName);
+        }
+
 
         public async Task<Cabinet> AddCabinetAsync(Cabinet cabinet)
         {
@@ -43,6 +47,20 @@ namespace Rozklad.Repository.Repositories
         public async Task<CabinetReadDto> GetAsync(int id)
         {
             return _mapper.Map<CabinetReadDto>(await _ctx.Cabinets.FirstAsync(x => x.CabinetId == id));
+        }
+
+        public async Task UpdateCabinetAsync(CabinetCreateDto updatedCabinet)
+        {
+            var cabinet = _ctx.Cabinets.FirstOrDefault(x => x.CabinetId == updatedCabinet.CabinetId);
+            cabinet.RoomCapacity = updatedCabinet.RoomCapacity;
+            cabinet.CabinetName = updatedCabinet.Name;
+            await _ctx.SaveChangesAsync();
+        }
+
+        public async Task DeleteCabinetAsync(int id)
+        {
+            _ctx.Remove(GetCabinet(id));
+            await _ctx.SaveChangesAsync();
         }
 
         public List<Cabinet> GetCabinets()
@@ -61,11 +79,7 @@ namespace Rozklad.Repository.Repositories
             return _ctx.Cabinets.FirstOrDefault(x => x.CabinetName == name);
         }
 
-        public async Task DeleteCabinetAsync(int id)
-        {
-            _ctx.Remove(GetCabinet(id));
-            await _ctx.SaveChangesAsync();
-        }
+       
 
     }
 }

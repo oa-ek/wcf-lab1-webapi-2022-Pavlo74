@@ -1,35 +1,32 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Rozklad.Repository.Dto.TimetableDto;
+using Rozklad.Core;
 using Rozklad.Repository.Repositories;
 
 namespace Rozklad.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TimetableApiController : ControllerBase
+    
+    public class TimetableAPIController : ControllerBase
     {
-        private readonly TimetableRepository timetableApiRepository;
-        private readonly ILogger<TimetableApiController> _logger;
-        public TimetableApiController(ILogger<TimetableApiController> logger, TimetableRepository timetableApiRepository)
+        private readonly TimetableRepository timetableRepository;
+        public TimetableAPIController(TimetableRepository timetableRepository)
         {
-            _logger = logger;
-            this.timetableApiRepository = timetableApiRepository;
+            this.timetableRepository = timetableRepository;
+            
         }
+
         [HttpGet]
         public TimetableRepository GetTimetableRepository()
         {
-            return timetableApiRepository;
+            return timetableRepository;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("GetTimetableListAsync")]
-        public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
+        [HttpGet("gettimetables/")]
+        public List<Timetable> GetTimetablesAPI()
         {
-            return await timetableApiRepository.GetListAsync();
+            var timetables = timetableRepository.GetTimetablesAPI();
+            return timetables;
         }
     }
 }

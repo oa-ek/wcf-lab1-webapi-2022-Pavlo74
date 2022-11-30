@@ -17,7 +17,7 @@ namespace Rozklad.WebAPI.Controllers
             this.userApiRepository = userApiRepository;
         }
         [HttpGet]
-        public UsersRepository GetPupilRepository()
+        public UsersRepository GetUserRepository()
         {
             return userApiRepository;
         }
@@ -26,7 +26,7 @@ namespace Rozklad.WebAPI.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetPupilListAsync")]
+        [HttpGet("GetUserListAsync")]
         public async Task<IEnumerable<UserReadDto>> GetListAsync()
         {
             return await userApiRepository.GetListAsync();

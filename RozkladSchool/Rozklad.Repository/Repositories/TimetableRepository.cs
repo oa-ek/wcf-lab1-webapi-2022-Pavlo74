@@ -18,14 +18,14 @@ namespace Rozklad.Repository.Repositories
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
+        /*public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
         {
             return _mapper.Map<IEnumerable<TimetableReadDto>>(await _ctx.Timetables.Include(x => x.Lesson).ThenInclude(x => x.Teacher).Include(x => x.Lesson).ThenInclude(x => x.Discipline).Include(x => x.Lesson).ThenInclude(x => x.Pupil).
                Include(x => x.Cabinet).
                Include(x => x.Week).
                Include(x => x.User).ToListAsync());
 
-        }
+        }*/
 
         public async Task<Timetable> AddTimetableAsync(Timetable timetable)
         {
@@ -61,6 +61,13 @@ namespace Rozklad.Repository.Repositories
                Include(x => x.Cabinet).
                Include(x => x.Week).
                Include(x => x.User).ToList();
+
+            return timetableList;
+        }
+
+        public List<Timetable> GetTimetablesAPI()
+        {
+            var timetableList = _ctx.Timetables.Include(x => x.Cabinet).ToList();
 
             return timetableList;
         }

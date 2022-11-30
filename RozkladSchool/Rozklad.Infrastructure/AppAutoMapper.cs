@@ -43,8 +43,11 @@ namespace Rozklad.Infrastructure
             CreateMap<TimetableReadDto, Timetable>();
             CreateMap<Timetable, TimetableReadDto>();
 
-            CreateMap<TimetableCreateDto, Timetable>();
-            CreateMap<Timetable, TimetableCreateDto>();
+            CreateMap<WeekReadDto, Timetable>();
+            CreateMap<Timetable, TimetableReadDto>();
+
+            //CreateMap<TimetableCreateDto, Timetable>();
+            //CreateMap<Timetable, TimetableCreateDto>();
         }
            
     }

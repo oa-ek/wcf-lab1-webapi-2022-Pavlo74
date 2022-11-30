@@ -1,4 +1,7 @@
-﻿using Rozklad.Core;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Rozklad.Core;
+using Rozklad.Repository.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +13,17 @@ namespace Rozklad.Repository.Repositories
     public class WeekRepository
     {
         private readonly RozkladContext _ctx;
-        public WeekRepository(RozkladContext ctx)
+        private readonly IMapper _mapper;
+        public WeekRepository(RozkladContext ctx, IMapper mapper)
         {
+            _mapper = mapper;
             _ctx = ctx;
+        }
+
+        public async Task<IEnumerable<WeekReadDto>> GetListAsync()
+        {
+            return _mapper.Map<IEnumerable<WeekReadDto>>(await _ctx.Weeks.ToListAsync());
+
         }
 
         public async Task<Week> AddWeekAsync(Week week)

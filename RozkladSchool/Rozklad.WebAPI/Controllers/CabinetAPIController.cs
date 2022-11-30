@@ -24,30 +24,31 @@ namespace Rozklad.WebAPI.Controllers
             return cabinetApiRepository;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+       
         [HttpGet("GetCabinetListAsync")]
         public async Task<IEnumerable<CabinetReadDto>> GetListAsync()
         {
             return await cabinetApiRepository.GetListAsync();
         }
 
-        /*[HttpPost]
-        public async Task<string> CreateAsync(CabinetCreateDto cab)
+        [HttpPost]
+        public async Task<Cabinet> Create(CabinetCreateDto cabDto)
         {
-            return await cabinetApiRepository.CreateAsync(cab);
-        }*/
-        /*[HttpPost]
-        public async Task<Cabinet> AddCabinetAsync(Cabinet cab)
+            var createdCabinet = await cabinetApiRepository.AddCabinetByDtoAsync(cabDto);
+            return createdCabinet;
+        }
+
+        [HttpPut]
+        public async Task Edit(CabinetCreateDto cab)
         {
-            return await cabinetApiRepository.AddCabinetAsync(cab);
-        }*/
+            await cabinetApiRepository.UpdateCabinetAsync(cab);
+        }
 
-
-
-
+        [HttpDelete("{id}")]
+        public async Task Delete(int id)
+        {
+            await cabinetApiRepository.DeleteCabinetAsync(id);
+        }
 
     }
 
