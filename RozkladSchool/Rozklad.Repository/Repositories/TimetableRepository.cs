@@ -67,7 +67,7 @@ namespace Rozklad.Repository.Repositories
 
         public List<Timetable> GetTimetablesAPI()
         {
-            var timetableList = _ctx.Timetables.Include(x => x.Cabinet).ToList();
+            var timetableList = _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.User).ToList();
 
             return timetableList;
         }

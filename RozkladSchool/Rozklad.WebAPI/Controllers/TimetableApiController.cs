@@ -22,10 +22,10 @@ namespace Rozklad.WebAPI.Controllers
         {
             return timetableRepository;
         }
-        [HttpGet("gettimetables/")]
+        [HttpGet("gettimetables")]
         public List<Timetable> GetTimetablesAPI()
         {
-            var timetables = timetableRepository.GetTimetablesAPI();
+            var timetables = timetableRepository.GetTimetables();
             return timetables;
         }
     }
