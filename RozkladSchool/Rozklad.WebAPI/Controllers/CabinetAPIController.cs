@@ -25,7 +25,7 @@ namespace Rozklad.WebAPI.Controllers
         }
 
        
-        [HttpGet("GetCabinetListAsync")]
+        [HttpGet("Get_Cabinet_List")]
         public async Task<IEnumerable<CabinetReadDto>> GetListAsync()
         {
             return await cabinetApiRepository.GetListAsync();

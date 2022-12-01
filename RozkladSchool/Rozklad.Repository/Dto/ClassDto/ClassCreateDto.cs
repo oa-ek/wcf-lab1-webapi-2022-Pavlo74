@@ -11,5 +11,6 @@ namespace Rozklad.Repository.Dto.ClassDto
     {
         public int ClassRoomId { get; set; }
         public string? ClassRoomName { get; set; }
+        public int Year { get; set; }
     }
 }

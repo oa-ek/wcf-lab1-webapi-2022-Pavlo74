@@ -25,6 +25,30 @@ namespace Rozklad.Repository.Repositories
             return _mapper.Map<IEnumerable<ClassRoomReadDto>>(await _ctx.ClassRooms.ToListAsync());
         }
 
+        public async Task<ClassRoomReadDto> GetAsync(int id)
+        {
+            return _mapper.Map<ClassRoomReadDto>(await _ctx.ClassRooms.FirstAsync(x => x.ClassRoomId == id));
+        }
+
+        public async Task<ClassRoom> AddClassRoomByDtoAsync(ClassCreateDto classDto)
+        {
+            var classRoom = new ClassRoom();
+            classRoom.ClassRoomName = classDto.ClassRoomName;
+            classRoom.Year = classDto.Year;
+            _ctx.ClassRooms.Add(classRoom);
+            await _ctx.SaveChangesAsync();
+            return _ctx.ClassRooms.FirstOrDefault(x => x.ClassRoomName == classRoom.ClassRoomName);
+        }
+
+        public async Task UpdateClassRoomAsync(ClassCreateDto updatedClassRoom)
+        {
+            var classRoom = _ctx.ClassRooms.FirstOrDefault(x => x.ClassRoomId == updatedClassRoom.ClassRoomId);
+
+            classRoom.ClassRoomName = updatedClassRoom.ClassRoomName;
+            classRoom.Year = updatedClassRoom.Year;
+            await _ctx.SaveChangesAsync();
+        }
+
         public async Task<ClassRoom> AddClassAsync(ClassRoom clas)
         {
             _ctx.ClassRooms.Add(clas);

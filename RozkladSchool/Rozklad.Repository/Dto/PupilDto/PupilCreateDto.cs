@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 namespace Rozklad.Repository.Dto.PupilDto
 {
     public class PupilCreateDto
-    {
-        [Required(ErrorMessage = "Введіть назву")]
-        
+    {   
+        public int PupilId { get; set; }
         public string? PupilName { get; set; }
     }
 }

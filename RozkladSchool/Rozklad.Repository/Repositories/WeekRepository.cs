@@ -26,6 +26,28 @@ namespace Rozklad.Repository.Repositories
 
         }
 
+        public async Task<WeekReadDto> GetAsync(int id)
+        {
+            return _mapper.Map<WeekReadDto>(await _ctx.Weeks.FirstAsync(x => x.WeekId == id));
+        }
+
+        public async Task<Week> AddWeekByDtoAsync(WeekCreateDto weekDto)
+        {
+            var week = new Week();
+            week.WeekName = weekDto.WeekName;
+
+            _ctx.Weeks.Add(week);
+            await _ctx.SaveChangesAsync();
+            return _ctx.Weeks.FirstOrDefault(x => x.WeekName == week.WeekName);
+        }
+
+        public async Task UpdateWeekAsync(WeekCreateDto updatedWeek)
+        {
+            var week = _ctx.Weeks.FirstOrDefault(x => x.WeekId == updatedWeek.WeekId);
+            week.WeekName = updatedWeek.WeekName;
+            await _ctx.SaveChangesAsync();
+        }
+
         public async Task<Week> AddWeekAsync(Week week)
         {
             _ctx.Weeks.Add(week);

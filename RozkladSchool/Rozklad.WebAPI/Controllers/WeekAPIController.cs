@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Rozklad.Core;
 using Rozklad.Repository.Dto;
 using Rozklad.Repository.Repositories;
 
@@ -23,29 +24,29 @@ namespace Rozklad.WebAPI.Controllers
         }
 
 
-        [HttpGet("GetWeekListAsync")]
+        [HttpGet("Get_Week_List")]
         public async Task<IEnumerable<WeekReadDto>> GetListAsync()
         {
             return await weekApiRepository.GetListAsync();
         }
 
-        //[HttpPost]
-        //public async Task<Cabinet> Create(CabinetCreateDto cabDto)
-        //{
-           // var createdCabinet = await cabinetApiRepository.AddCabinetByDtoAsync(cabDto);
-            //return createdCabinet;
-        //}
+        [HttpPost]
+        public async Task<Week> Create(WeekCreateDto weekDto)
+        {
+            var createdWeek = await weekApiRepository.AddWeekByDtoAsync(weekDto);
+            return createdWeek;
+        }
 
-        //[HttpPut]
-        //public async Task Edit(CabinetCreateDto cab)
-        //{
-            //await cabinetApiRepository.UpdateCabinetAsync(cab);
-       // }
+        [HttpPut]
+        public async Task Edit(WeekCreateDto week)
+        {
+            await weekApiRepository.UpdateWeekAsync(week);
+        }
 
-       // [HttpDelete("{id}")]
-       // public async Task Delete(int id)
-        //{
-           // await cabinetApiRepository.DeleteCabinetAsync(id);
-        //}
+        [HttpDelete("{id}")]
+        public async Task Delete(int id)
+        {
+            await weekApiRepository.DeleteWeekAsync(id);
+        }
     }
 }

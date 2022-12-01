@@ -32,6 +32,29 @@ namespace Rozklad.Repository.Repositories
 
         }
 
+        public async Task<PupilReadDto> GetAsync(int id)
+        {
+            return _mapper.Map<PupilReadDto>(await _ctx.Pupils.FirstAsync(x => x.PupilId == id));
+        }
+
+        public async Task<Pupil> AddPupilByDtoAsync(PupilCreateDto pupilDto)
+        {
+            var pupil = new Pupil();
+            pupil.PupilName = pupilDto.PupilName;
+
+            _ctx.Pupils.Add(pupil);
+            await _ctx.SaveChangesAsync();
+            return _ctx.Pupils.FirstOrDefault(x => x.PupilName == pupil.PupilName);
+        }
+
+        public async Task UpdatePupilAsync(PupilCreateDto updatedPupil)
+        {
+            var pupil = _ctx.Pupils.FirstOrDefault(x => x.PupilId == updatedPupil.PupilId);
+
+            pupil.PupilName = updatedPupil.PupilName;
+            await _ctx.SaveChangesAsync();
+        }
+
         public Pupil GetPupil(int id)
         {
             return _ctx.Pupils.Include(x => x.ClassRoom).FirstOrDefault(x => x.PupilId == id);

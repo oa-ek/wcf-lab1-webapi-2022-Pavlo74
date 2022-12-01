@@ -27,6 +27,28 @@ namespace Rozklad.Repository.Repositories
             return _mapper.Map<IEnumerable<TeacherReadDto>>(await _ctx.Teachers.ToListAsync());
         }
 
+        public async Task<TeacherReadDto> GetAsync(int id)
+        {
+            return _mapper.Map<TeacherReadDto>(await _ctx.Teachers.FirstAsync(x => x.TeacherId == id));
+        }
+
+        public async Task<Teacher> AddTeacherByDtoAsync(TeacherCreateDto teacherDto)
+        {
+            var teacher = new Teacher();
+            teacher.TeacherName = teacherDto.TeacherName;
+
+            _ctx.Teachers.Add(teacher);
+            await _ctx.SaveChangesAsync();
+            return _ctx.Teachers.FirstOrDefault(x => x.TeacherName == teacher.TeacherName);
+        }
+
+        public async Task UpdateTeacherAsync(TeacherCreateDto updatedTeacher)
+        {
+            var teacher = _ctx.Teachers.FirstOrDefault(x => x.TeacherId == updatedTeacher.TeacherId);
+            teacher.TeacherName = updatedTeacher.TeacherName;
+            await _ctx.SaveChangesAsync();
+        }
+
         public async Task<Teacher> AddTeacherAsync(Teacher teacher)
         {
             _ctx.Teachers.Add(teacher);

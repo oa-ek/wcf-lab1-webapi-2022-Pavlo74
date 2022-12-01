@@ -21,9 +21,8 @@ builder.Services.AddScoped<CabinetRepository>();
 builder.Services.AddScoped<TeacherRepository>();
 builder.Services.AddScoped<DisciplineRepository>();
 builder.Services.AddScoped<ClassRoomRepository>();
-builder.Services.AddScoped<TimetableRepository>();
+//builder.Services.AddScoped<TimetableRepository>();
 builder.Services.AddScoped<PupilRepository>();
-builder.Services.AddScoped<UsersRepository>();
 builder.Services.AddScoped<WeekRepository>();
 
 
