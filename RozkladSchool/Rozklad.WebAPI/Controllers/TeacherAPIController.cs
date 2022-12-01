@@ -12,6 +12,11 @@ namespace Rozklad.WebAPI.Controllers
     {
         private readonly TeacherRepository teacherApiRepository;
         private readonly ILogger<TeacherAPIController> _logger;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="teacherApiRepository"></param>
         public TeacherAPIController(ILogger<TeacherAPIController> logger, TeacherRepository teacherApiRepository)
         {
             _logger = logger;
@@ -29,20 +34,32 @@ namespace Rozklad.WebAPI.Controllers
         {
             return await teacherApiRepository.GetListAsync();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="teacherDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<Teacher> Create(TeacherCreateDto teacherDto)
         {
             var createdTeacher = await teacherApiRepository.AddTeacherByDtoAsync(teacherDto);
             return createdTeacher;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="teacher"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task Edit(TeacherCreateDto teacher)
         {
             await teacherApiRepository.UpdateTeacherAsync(teacher);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {

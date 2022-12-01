@@ -12,7 +12,7 @@ namespace Rozklad.WebAPI.Controllers
     
     public class TimetableAPIController : ControllerBase
     {
-        
+       
         private readonly ILogger<TimetableAPIController> _logger;
         private readonly TimetableRepository timetableRepository;
         private readonly ClassRoomRepository classRoomRepository;
@@ -30,13 +30,16 @@ namespace Rozklad.WebAPI.Controllers
             this.timetableRepository = timetableRepository;
             
         }
-
+        
         [HttpGet]
+        
         public TimetableRepository GetTimetableRepository()
         {
             return timetableRepository;
         }
+        
         [HttpGet("getTimetables")]
+        
         public List<Timetable> GetTimetablesAPI()
         {
             var timetables = timetableRepository.GetTimetables();

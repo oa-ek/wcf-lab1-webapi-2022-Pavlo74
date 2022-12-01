@@ -13,12 +13,19 @@ namespace Rozklad.WebAPI.Controllers
 
         private readonly CabinetRepository cabinetApiRepository;
         private readonly ILogger<CabinetAPIController> _logger;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="cabinetApiRepository"></param>
         public CabinetAPIController(ILogger<CabinetAPIController> logger, CabinetRepository cabinetApiRepository)
         {
             _logger = logger;
             this.cabinetApiRepository = cabinetApiRepository;
         }
+        
         [HttpGet]
+        
         public CabinetRepository GetCabinetRepository()
         {
             return cabinetApiRepository;
@@ -30,20 +37,32 @@ namespace Rozklad.WebAPI.Controllers
         {
             return await cabinetApiRepository.GetListAsync();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cabDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<Cabinet> Create(CabinetCreateDto cabDto)
         {
             var createdCabinet = await cabinetApiRepository.AddCabinetByDtoAsync(cabDto);
             return createdCabinet;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cab"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task Edit(CabinetCreateDto cab)
         {
             await cabinetApiRepository.UpdateCabinetAsync(cab);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {

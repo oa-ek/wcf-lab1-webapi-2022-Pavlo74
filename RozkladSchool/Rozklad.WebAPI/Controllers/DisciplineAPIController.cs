@@ -12,6 +12,11 @@ namespace Rozklad.WebAPI.Controllers
     {
         private readonly DisciplineRepository disciplineApiRepository;
         private readonly ILogger<DisciplineAPIController> _logger;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="disciplineApiRepository"></param>
         public DisciplineAPIController(ILogger<DisciplineAPIController> logger, DisciplineRepository disciplineApiRepository)
         {
             _logger = logger;
@@ -29,20 +34,32 @@ namespace Rozklad.WebAPI.Controllers
         {
             return await disciplineApiRepository.GetListAsync();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disciplineDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<Discipline> Create(DisciplineCreateDto disciplineDto)
         {
             var disciplineCabinet = await disciplineApiRepository.AddDisciplineByDtoAsync(disciplineDto);
             return disciplineCabinet;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="discipline"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task Edit(DisciplineCreateDto discipline)
         {
             await disciplineApiRepository.UpdateDisciplineAsync(discipline);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {

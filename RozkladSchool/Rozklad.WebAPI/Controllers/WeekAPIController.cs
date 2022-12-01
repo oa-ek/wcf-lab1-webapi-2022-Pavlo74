@@ -29,20 +29,32 @@ namespace Rozklad.WebAPI.Controllers
         {
             return await weekApiRepository.GetListAsync();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="weekDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<Week> Create(WeekCreateDto weekDto)
         {
             var createdWeek = await weekApiRepository.AddWeekByDtoAsync(weekDto);
             return createdWeek;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="week"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task Edit(WeekCreateDto week)
         {
             await weekApiRepository.UpdateWeekAsync(week);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
