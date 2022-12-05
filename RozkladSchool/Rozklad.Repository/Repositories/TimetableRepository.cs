@@ -9,23 +9,20 @@ namespace Rozklad.Repository.Repositories
     public class TimetableRepository
     {
         private readonly RozkladContext _ctx;
-        private readonly UsersRepository _usersRepository;
+        //private readonly UsersRepository _usersRepository;
         private readonly IMapper _mapper;
-        public TimetableRepository(RozkladContext ctx, UsersRepository usersRepository, IMapper mapper)
+        public TimetableRepository(RozkladContext ctx, /*UsersRepository usersRepository,*/ IMapper mapper)
         {
             _ctx = ctx;
-            _usersRepository = usersRepository;
+            //_usersRepository = usersRepository;
             _mapper = mapper;
         }
 
-        /*public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
+        public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
         {
-            return _mapper.Map<IEnumerable<TimetableReadDto>>(await _ctx.Timetables.Include(x => x.Lesson).ThenInclude(x => x.Teacher).Include(x => x.Lesson).ThenInclude(x => x.Discipline).Include(x => x.Lesson).ThenInclude(x => x.Pupil).
-               Include(x => x.Cabinet).
-               Include(x => x.Week).
-               Include(x => x.User).ToListAsync());
+            return _mapper.Map<IEnumerable<TimetableReadDto>>(await _ctx.Timetables.Include(x => x.Cabinet).ToListAsync());
 
-        }*/
+        }
 
         public async Task<Timetable> AddTimetableAsync(Timetable timetable)
         {
@@ -65,12 +62,12 @@ namespace Rozklad.Repository.Repositories
             return timetableList;
         }
 
-        public List<Timetable> GetTimetablesAPI()
-        {
-            var timetableList = _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.User).ToList();
+        //public List<Timetable> GetTimetablesAPI()
+        //{
+            //var timetableList = _ctx.Timetables.Include(x => x.Cabinet)/*.Include(x => x.User).*/.ToList();
 
-            return timetableList;
-        }
+            //return timetableList;
+       // }
 
         public async Task<TimetableReadDto> GetTimetableDto(int id)
         {

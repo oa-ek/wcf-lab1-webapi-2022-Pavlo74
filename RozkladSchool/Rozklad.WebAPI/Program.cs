@@ -21,9 +21,9 @@ builder.Services.AddScoped<CabinetRepository>();
 builder.Services.AddScoped<TeacherRepository>();
 builder.Services.AddScoped<DisciplineRepository>();
 builder.Services.AddScoped<ClassRoomRepository>();
-//builder.Services.AddScoped<TimetableRepository>();
 builder.Services.AddScoped<PupilRepository>();
 builder.Services.AddScoped<WeekRepository>();
+builder.Services.AddScoped<TimetableRepository>();
 
 
 
@@ -74,6 +74,6 @@ app.MapControllers();
 
 app.Run();
 
-app.MapControllers();
+//app.MapControllers();
 
 //app.MapFallbackToFile("index.html");

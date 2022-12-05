@@ -21,6 +21,7 @@ namespace Rozklad.Core
         
         public int CabinetId { get; set; }
         public Cabinet? Cabinet { get; set; }
+
         public int LessonId { get; set; }
         public Lesson? Lesson { get; set; }
 

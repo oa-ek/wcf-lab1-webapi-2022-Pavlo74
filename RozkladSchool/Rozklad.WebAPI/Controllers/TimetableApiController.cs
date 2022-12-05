@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Rozklad.Core;
 using Rozklad.Repository;
+using Rozklad.Repository.Dto.TimetableDto;
 using Rozklad.Repository.Repositories;
 
 namespace Rozklad.WebAPI.Controllers
@@ -14,36 +15,42 @@ namespace Rozklad.WebAPI.Controllers
     {
        
         private readonly ILogger<TimetableAPIController> _logger;
+       // private readonly TimetableRepository ctx;
         private readonly TimetableRepository timetableRepository;
-        private readonly ClassRoomRepository classRoomRepository;
-        private readonly CabinetRepository cabinetRepository;
-        private readonly DisciplineRepository disciplineRepository;
-        private readonly TeacherRepository teacherRepository;
-        private readonly WeekRepository weekRepository;
-        private readonly PupilRepository pupilRepository;
-        private readonly LessonRepository lessonRepository;
-        private readonly UsersRepository usersRepository;
-        private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
-        public TimetableAPIController(TimetableRepository timetableRepository, ClassRoomRepository classRoomRepository)
+        //private readonly CabinetRepository cabinetsRepository;
+        public TimetableAPIController(TimetableRepository timetableRepository, /*CabinetRepository cabinetRepository,*/ ILogger<TimetableAPIController> logger )
         {
             this.timetableRepository = timetableRepository;
-            
+            //cabinetsRepository = cabinetRepository;
+            _logger = logger;
+           // ctx = context;
+
         }
-        
+
         [HttpGet]
-        
         public TimetableRepository GetTimetableRepository()
         {
             return timetableRepository;
         }
-        
-        [HttpGet("getTimetables")]
-        
-        public List<Timetable> GetTimetablesAPI()
+
+        //[HttpGet]
+
+        //public TimetableRepository GetTimetableRepository()
+        //{
+        //return timetableRepository;
+        //}
+
+        [HttpGet("Get-timetable")]
+        public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
         {
-            var timetables = timetableRepository.GetTimetables();
-            return timetables;
+            return await timetableRepository.GetListAsync();
         }
+        //[HttpGet("get-Timetables")]
+
+        //public List<Timetable> GetTimetablesAPI()
+        //{
+        //var timetables = timetableRepository.GetTimetables();
+        //return timetables;
+        //}
     }
 }
