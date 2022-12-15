@@ -9,6 +9,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.8" PrivateAssets="all" />
+    <PackageReference Include="Syncfusion.Blazor" Version="20.3.0.60" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.3.0.60" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rozklad.ClientBlazor.Infrastructure\Rozklad.ClientBlazor.Infrastructure.csproj" />
+    <ProjectReference Include="..\Rozklad.Core\Rozklad.Core.csproj" />
+    <ProjectReference Include="..\Rozklad.Infrastructure\Rozklad.Infrastructure.csproj" />
+    <ProjectReference Include="..\Rozklad.Repository\Rozklad.Repository.csproj" />
   </ItemGroup>
 
 </Project>

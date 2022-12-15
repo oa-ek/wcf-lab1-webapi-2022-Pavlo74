@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.8" PrivateAssets="all" />
+    <PackageReference Include="Syncfusion.Blazor" Version="20.3.0.61" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.3.0.61" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Rozklad.Infrastructure\Rozklad.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\RozkladClient.Infrastructure\RozkladClient.Infrastructure.csproj" />
+    <ProjectReference Include="..\Shared\Rozklad.BlazorApp.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

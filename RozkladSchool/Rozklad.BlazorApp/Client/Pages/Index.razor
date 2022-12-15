@@ -1,0 +1,45 @@
+﻿@page "/"
+@using Rozklad.BlazorApp.Client.Shared.Components
+@using Rozklad.Repository.Dto.TimetableDto
+@using RozkladClient.Infrastructure
+@using Rozklad.Infrastructure
+
+@inject HttpTimetableService TimetableService
+@inject NavigationManager Navigation
+<h4>Предмети</h4>
+
+<hr />
+@if(Timetables is not null && Timetables.Any())
+{
+    <div class="row">
+        @foreach (var t in Timetables)
+        {
+            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                <TimetableGrid Timetable ="t"></TimetableGrid>
+            </div>
+        }
+    </div>
+} 
+else if(Timetables is not null)
+{
+    <SfMessage Severity="MessageSeverity.Warning">Інформація про запити відсутня...</SfMessage>
+
+} else
+{
+    <SpinnerComponent></SpinnerComponent>
+}
+
+@code {
+
+    private IEnumerable<TimetableReadDto> Timetables = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Timetables = await TimetableService.GetTimetablesAsync();        
+    }
+
+    void GoToNewRequestPage()
+    {
+        Navigation.NavigateTo("/timetables/new");
+    }
+}

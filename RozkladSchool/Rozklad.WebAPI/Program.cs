@@ -51,7 +51,7 @@ builder.Services.AddSwaggerGen(options =>
 
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";//через іксемель коментарі документується код
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-   //options.IncludeXmlComments(xmlPath);
+   options.IncludeXmlComments(xmlPath);
 });
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);

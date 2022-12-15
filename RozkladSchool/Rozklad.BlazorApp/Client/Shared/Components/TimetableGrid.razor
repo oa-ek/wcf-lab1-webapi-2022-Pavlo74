@@ -1,0 +1,45 @@
+﻿
+@using Rozklad.Core
+@using Rozklad.Repository.Dto.TimetableDto
+@using RozkladClient.Infrastructure
+
+
+@inject NavigationManager Navigation
+@inject HttpTimetableService timetableService
+<h3>TimetableGrid</h3>
+
+
+<div class="card-body">
+        <h5 class="card-title">@Timetable.TimetableId</h5>
+        <p class="card-text">@((MarkupString)Timetable.LessonName)</p>
+
+        
+        <hr />
+        
+
+        <SfButton IsPrimary="true" OnClick="@GoToDetailsPage">Деталі</SfButton>
+        <SfButton CssClass="e-warning" OnClick="@GoToEditPage">Редагувати</SfButton>       
+    </div>
+
+@code {
+	[Parameter]
+    public TimetableReadDto? Timetable { get; set; }
+
+    //private IEnumerable<TimetableReadDto> Timetables = new List<TimetableReadDto>();
+
+    //protected override async Task OnInitializedAsync()
+    //{
+        //Timetables = await timetableService.GetTimetablesAsync();
+   // }
+
+    void GoToDetailsPage()
+    {
+        Navigation.NavigateTo($"/timetables/{Timetable.TimetableId}");
+    }
+
+    void GoToEditPage()
+    {
+        Navigation.NavigateTo($"/timetables/edit/{Timetable.TimetableId}");
+    }
+
+}

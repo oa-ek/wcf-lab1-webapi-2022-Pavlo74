@@ -20,11 +20,11 @@ namespace Rozklad.Repository.Dto.TimetableDto
 
         public string? TimeEnd { get; set; }
 
-        public string? IconPath { get; set; }
-        public int CabinetId { get; set; }
+        //public string? IconPath { get; set; }
+        //public int CabinetId { get; set; }
         public string? CabinetName { get; set; }
 
-        public int WeekId;
+        //public int WeekId;
          public string? WeekName { get; set; }
 
          public string? DisciplineName { get; set; }
@@ -35,28 +35,11 @@ namespace Rozklad.Repository.Dto.TimetableDto
 
          public string? ClassRoomName { get; set; }
 
-        public int LessonId { get; set; }
+        //public int LessonId { get; set; }
         public string? LessonName { get; set; }
 
          public string? UserId { get; set; }
-        /*public int TimetableId { get; set; }
-
-        public int LessonNumber { get; set; }
-        public string? Day { get; set; }
-        public string? TimeStart { get; set; }
-        public string? TimeEnd { get; set; }
-
-        public int CabinetId { get; set; }
-        public Cabinet? Cabinet { get; set; }
-        public int LessonId { get; set; }
-        public Lesson? Lesson { get; set; }
-
-        public int WeekId { get; set; }
-        public Week? Week { get; set; }
-
-        public string? UserId { get; set; }
-        public User? User { get; set; }*/
-
+       
 
     }
 }
