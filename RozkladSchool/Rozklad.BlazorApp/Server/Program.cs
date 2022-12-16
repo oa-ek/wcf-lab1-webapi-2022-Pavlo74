@@ -26,7 +26,7 @@ builder.Services.AddDbContext<RozkladContext>(options =>
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 //builder.Services.AddTransient<UsersRepository>();
 //builder.Services.AddTransient<ClassRoomRepository>();
 //builder.Services.AddTransient<LessonRepository>();
@@ -115,7 +115,7 @@ app.UseRouting();
 
 
 app.MapRazorPages();
-//app.MapControllers();
+app.MapControllers();
 app.MapFallbackToFile("index.html");
 
 app.Run();

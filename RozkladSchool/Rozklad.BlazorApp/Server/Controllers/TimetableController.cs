@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Rozklad.Core;
 using Rozklad.Repository.Dto.TimetableDto;
 using Rozklad.Repository.Repositories;
 
@@ -22,16 +23,12 @@ namespace Rozklad.BlazorApp.Server.Controllers
 
         }
 
-        [HttpGet]
-        public TimetableRepository GetTimetableRepository()
-        {
-            return timetableRepository;
-        }
+      
 
-        [HttpGet("Get-timetable")]
-        public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
+        [HttpGet("/t")]
+        public async Task<IActionResult> GetListAsync()
         {
-            return await timetableRepository.GetListAsync();
+            return Ok(await timetableRepository.GetListAsync());
         }
         
     }

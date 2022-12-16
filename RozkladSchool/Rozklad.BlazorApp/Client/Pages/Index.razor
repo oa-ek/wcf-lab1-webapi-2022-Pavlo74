@@ -9,7 +9,7 @@
 <h4>Предмети</h4>
 
 <hr />
-@if(Timetables is not null && Timetables.Any())
+@if(Timetables is not null )
 {
     <div class="row">
         @foreach (var t in Timetables)
@@ -35,7 +35,7 @@ else if(Timetables is not null)
 
     protected override async Task OnInitializedAsync()
     {
-        Timetables = await TimetableService.GetTimetablesAsync();        
+        //Timetables = await TimetableService.GetTimetablesAsync();        
     }
 
     void GoToNewRequestPage()
