@@ -1,4 +1,5 @@
 ﻿using Rozklad.Core;
+using Rozklad.Repository.Dto.PupilDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace Rozklad.Repository.Dto.ClassDto
         public string? ClassRoomName { get; set; }
         public int Year { get; set; }
         public int PupilId { get; set; }
-        public Pupil? Pupil { get; set; }
+        //public PupilReadDto? Pupil { get; set; }
 
-        public virtual ICollection<Timetable>? Timetables { get; set; }
+        //public virtual ICollection<Pupil>? Pupils { get; set; }
     }
 }

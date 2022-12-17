@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Rozklad.Core;
 using Rozklad.Infrastructure;
+using Rozklad.Repository;
 using Rozklad.Repository.Repositories;
 using System.Globalization;
 using System.Reflection;
@@ -28,16 +29,17 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 
 //builder.Services.AddControllersWithViews();
 //builder.Services.AddTransient<UsersRepository>();
-//builder.Services.AddTransient<ClassRoomRepository>();
-//builder.Services.AddTransient<LessonRepository>();
-//builder.Services.AddTransient<CabinetRepository>();
+builder.Services.AddTransient<ClassRoomRepository>();
+builder.Services.AddTransient<LessonRepository>();
+builder.Services.AddTransient<CabinetRepository>();
 //builder.Services.AddScoped<CabinetAPIRepository>();
 builder.Services.AddScoped<TimetableRepository>();
 //builder.Services.AddScoped<LessonAPIRepository>();
 //builder.Services.AddScoped<UsersAPIRepository>();
-//builder.Services.AddTransient<TeacherRepository>();
-//builder.Services.AddTransient<DisciplineRepository>();
-//builder.Services.AddTransient<PupilRepository>();
+builder.Services.AddTransient<TeacherRepository>();
+builder.Services.AddTransient<DisciplineRepository>();
+builder.Services.AddTransient<PupilRepository>();
+builder.Services.AddTransient<WeekRepository>();
 
 //builder.Services.AddTransient<TimetableRepository>();
 

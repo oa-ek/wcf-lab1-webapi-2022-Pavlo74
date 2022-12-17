@@ -12,5 +12,6 @@ namespace Rozklad.Repository.Dto.DisciplineDto
 
         public int DisciplineId { get; set; }
         public string? DisciplineName { get; set; }
+        //public virtual ICollection<Lesson>? Lessons { get; set; }
     }
 }

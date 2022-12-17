@@ -1,4 +1,5 @@
-﻿using Rozklad.Repository.Dto.TimetableDto;
+﻿using Rozklad.Core;
+using Rozklad.Repository.Dto.TimetableDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace RozkladClient.Infrastructure
 
         public async Task<IEnumerable<TimetableReadDto>> GetTimetablesAsync()
         {
-            return await httpClient.GetFromJsonAsync<IEnumerable<TimetableReadDto>>("/api/timetables");
+           return await httpClient.GetFromJsonAsync<IEnumerable<TimetableReadDto>>("/timetable");
         }
 
         //public async Task<int> CreateTimetablesAsync(TimetableCreateDto time)

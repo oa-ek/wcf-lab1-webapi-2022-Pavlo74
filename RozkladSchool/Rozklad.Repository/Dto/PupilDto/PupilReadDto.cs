@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Rozklad.Core;
+using Rozklad.Repository.Dto.ClassDto;
 
 namespace Rozklad.Repository.Dto.PupilDto
 {
@@ -13,7 +14,7 @@ namespace Rozklad.Repository.Dto.PupilDto
         public string? PupilName { get; set; }
         public int Year { get; set; }
         public int ClassRoomId { get; set; }
-        public ClassRoom? ClassRoom { get; set; }
+        //public ClassRoomReadDto? ClassRoom { get; set; }
         public string? IconPath { get; set; }
     }
 }

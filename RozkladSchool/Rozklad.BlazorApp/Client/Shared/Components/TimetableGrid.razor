@@ -1,5 +1,4 @@
-﻿
-@using Rozklad.Core
+﻿@using Rozklad.Core
 @using Rozklad.Repository.Dto.TimetableDto
 @using RozkladClient.Infrastructure
 
@@ -10,8 +9,8 @@
 
 
 <div class="card-body">
-        <h5 class="card-title">@Timetable.TimetableId</h5>
-        <p class="card-text">@((MarkupString)Timetable.LessonName)</p>
+        <h5 class="card-title">@TimetableRead.TimetableId</h5>
+        <p class="card-text">@((MarkupString)TimetableRead.TimeStart)</p>
 
         
         <hr />
@@ -23,23 +22,23 @@
 
 @code {
 	[Parameter]
-    public TimetableReadDto? Timetable { get; set; }
+    public TimetableReadDto? TimetableRead { get; set; }
 
     //private IEnumerable<TimetableReadDto> Timetables = new List<TimetableReadDto>();
 
     //protected override async Task OnInitializedAsync()
     //{
-        //Timetables = await timetableService.GetTimetablesAsync();
-   // }
+        //TimetableRead = await timetableService.GetTimetablesAsync();
+    //}
 
     void GoToDetailsPage()
     {
-        Navigation.NavigateTo($"/timetables/{Timetable.TimetableId}");
+        Navigation.NavigateTo($"/timetables/{TimetableRead.TimetableId}");
     }
 
     void GoToEditPage()
     {
-        Navigation.NavigateTo($"/timetables/edit/{Timetable.TimetableId}");
+        Navigation.NavigateTo($"/timetables/edit/{TimetableRead.TimetableId}");
     }
 
 }

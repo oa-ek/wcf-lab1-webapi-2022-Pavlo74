@@ -1,4 +1,7 @@
 ﻿using Rozklad.Core;
+using Rozklad.Repository.Dto.DisciplineDto;
+using Rozklad.Repository.Dto.PupilDto;
+using Rozklad.Repository.Dto.TeacherDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +16,11 @@ namespace Rozklad.Repository.Dto.LessonDto
         public string? LessonName { get; set; }
         public int Year { get; set; }
         public int DisciplineId { get; set; }
-        public Discipline? Discipline { get; set; }
+       // public DisciplineReadDto? Discipline { get; set; }
         public int TeacherId { get; set; }
-        public Teacher? Teacher { get; set; }
+        //public TeacherReadDto? Teacher { get; set; }
         public int PupilId { get; set; }
-        public Pupil? Pupil { get; set; }
+        //public PupilReadDto? Pupil { get; set; }
 
         //public virtual ICollection<Timetable>? Timetables { get; set; }
     }

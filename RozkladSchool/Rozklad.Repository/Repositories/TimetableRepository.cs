@@ -20,20 +20,31 @@ namespace Rozklad.Repository.Repositories
 
         public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
         {
-            return _mapper.Map<IEnumerable<TimetableReadDto>>(await _ctx.Timetables.ToListAsync());
+            return _mapper.Map<IEnumerable<TimetableReadDto>>(await _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.Lesson).ThenInclude(x => x.Discipline)/*.Include(x => x.Lesson.Teacher).Include(x => x.Lesson.Pupil).ThenInclude(x => x.ClassRoom)*/.Include(x => x.Week).ToListAsync());
 
         }
 
-        public async Task<Timetable> AddTimetableAsync(Timetable timetable)
+        public async Task<TimetableReadDto> GetAsync(int id)
+        {
+            return _mapper.Map<TimetableReadDto>(await _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.Lesson)/*ThenInclude(x => x.Discipline)/*Include(x => x.Lesson.Teacher).Include(x => x.Lesson.Pupil).ThenInclude(x => x.ClassRoom)/*.Include(x => x.Week).Include(x => x.User)*/.FirstAsync());
+        }
+
+        public async Task<TimetableCreateDto> AddTimetableAsync(Timetable timetable)
         {
             _ctx.Timetables.Add(timetable);
             await _ctx.SaveChangesAsync();
-            return _ctx.Timetables.Include(x => x.Lesson).ThenInclude(x => x.Teacher).Include(x => x.Lesson).ThenInclude(x => x.Discipline).Include(x => x.Lesson).ThenInclude(x => x.Pupil).
-               Include(x => x.Cabinet).
-               Include(x => x.Week).
-               Include(x => x.User).
-
-               FirstOrDefault(x => x.Lesson.LessonName == timetable.Lesson.LessonName);
+            var createdTimetable = _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.Lesson).Include(x => x.Week).FirstOrDefault(x => x.TimetableId == timetable.TimetableId);
+            return new TimetableCreateDto
+            {
+                TimetableId = createdTimetable.TimetableId,
+                TimeStart = createdTimetable.TimeStart,
+                TimeEnd = createdTimetable.TimeEnd,
+                LessonNumber = createdTimetable.LessonNumber,
+                
+                CabinetName = createdTimetable.Cabinet.CabinetName,
+                LessonName = createdTimetable.Lesson.LessonName, 
+                WeekName = createdTimetable.Week.WeekName
+            };
         }
 
         public Timetable GetTimetable(int id)
@@ -48,6 +59,7 @@ namespace Rozklad.Repository.Repositories
                Include(x => x.Lesson).
                ThenInclude(x => x.Pupil).
                ThenInclude(x => x.ClassRoom).
+               Include(x => x.User).
 
                FirstOrDefault();
         }
@@ -62,12 +74,32 @@ namespace Rozklad.Repository.Repositories
             return timetableList;
         }
 
-        //public List<Timetable> GetTimetablesAPI()
-        //{
-            //var timetableList = _ctx.Timetables.Include(x => x.Cabinet)/*.Include(x => x.User).*/.ToList();
+        public List<TimetableCreateDto> GetTimetablesDto()
+        {
+            var timetableList = _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.Week).Include(x => x.User).ToList();
+            var timetableListDto = new List<TimetableCreateDto>();
+            foreach (var timetable in timetableList)
+            {
+                timetableListDto.Add(new TimetableCreateDto
+                {
+                    TimetableId = timetable.TimetableId,
+                    LessonNumber = timetable.LessonNumber,
+                    TimeStart = timetable.TimeStart,
+                    CabinetName = timetable.Cabinet.CabinetName,
+                    WeekName = timetable.Week.WeekName,
+                    
+                });
+            }
+            return timetableListDto;
+        }
 
-            //return timetableList;
-       // }
+
+        public List<Timetable> GetTimetablesAPI()
+        {
+            var timetableList = _ctx.Timetables.Include(x => x.Cabinet)/*.Include(x => x.User).*/.ToList();
+
+            return timetableList;
+        }
 
         public async Task<TimetableReadDto> GetTimetableDto(int id)
         {
@@ -83,13 +115,13 @@ namespace Rozklad.Repository.Repositories
                 Day = v.Day,
                 TimeStart = v.TimeStart,
                 TimeEnd = v.TimeEnd,
-                DisciplineName = v.Lesson.Discipline.DisciplineName,
-                PupilName = v.Lesson.Pupil.PupilName,
-                TeacherName = v.Lesson.Teacher.TeacherName,
-                LessonName = v.Lesson?.LessonName,
-                CabinetName = v.Cabinet?.CabinetName,
-                WeekName = v.Week?.WeekName,
-                UserId = v.UserId
+                //DisciplineName = v.Lesson.Discipline.DisciplineName,
+                //PupilName = v.Lesson.Pupil.PupilName,
+                //TeacherName = v.Lesson.Teacher.TeacherName,
+                //LessonName = v.Lesson?.LessonName,
+                //CabinetName = v.Cabinet?.CabinetName,
+                //WeekName = v.Week?.WeekName,
+                //UserId = v.UserId
             };
             return timetableDto;
         }
@@ -141,6 +173,12 @@ namespace Rozklad.Repository.Repositories
         {
             _ctx.Remove(GetTimetable(id));
             await _ctx.SaveChangesAsync();
+        }
+
+        public List<TimetableCreateDto> SearchTimetable(string searchText)
+        {
+            return GetTimetablesDto().
+                Where(x => x.LessonNumber.ToString().Contains(searchText.ToLower()) || x.TimeStart.ToLower().Contains(searchText.ToLower()) || x.TimeEnd.ToString().Contains(searchText.ToLower())).ToList();
         }
     }
 }
