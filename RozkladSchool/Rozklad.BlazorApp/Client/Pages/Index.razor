@@ -1,60 +1,9 @@
 ﻿@page "/"
-@using Rozklad.BlazorApp.Client.Shared.Components
-@using Rozklad.Repository.Dto.TimetableDto
-@using Rozklad.Repository.Repositories
-@using RozkladClient.Infrastructure
-@using Rozklad.Infrastructure
 
-@inject HttpTimetableService TimetableService
-@*inject TimetableRepository TimetableRepos*@
-@inject NavigationManager Navigation
-<h4>Предмети</h4>
+<PageTitle>Index</PageTitle>
 
-<hr />
-@if(Timetables is not null && Timetables.Any())
-{
-    <div class="row">
-        @foreach (var t in Timetables)
-        {
-            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                <TimetableGrid TimetableRead ="t"></TimetableGrid>
-            </div>
-        }
-    </div>
-}
-    
-else if(Timetables is not null)
-{
-    <SfMessage Severity="MessageSeverity.Warning">Інформація про запити відсутня...</SfMessage>
+<h1>Hello, world!</h1>
 
-} else
-{
-    <SpinnerComponent></SpinnerComponent>
-}
+Welcome to your new app.
 
-@code {
-
-    
-    //public TimetableReadDto? TimetableRead { get; set; }
-    private IEnumerable<TimetableReadDto> Timetables = null;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Timetables = await TimetableService.GetTimetablesAsync();        
-    }
-
-    void GoToNewRequestPage()
-    {
-        Navigation.NavigateTo("/timetables/new");
-    }
-
-    void GoToDetailsPage()
-    {
-        //Navigation.NavigateTo($"/timetables/{TimetableRead.TimetableId}");
-    }
-
-    void GoToEditPage()
-    {
-       // Navigation.NavigateTo($"/timetables/edit/{TimetableRead.TimetableId}");
-    }
-}
+<SurveyPrompt Title="How is Blazor working for you?" />

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\TimetablePages\Create.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+    <PackageReference Include="Blazored.Modal" Version="7.1.0" />
+    <PackageReference Include="Blazored.Typeahead" Version="4.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.8" PrivateAssets="all" />
     <PackageReference Include="Syncfusion.Blazor" Version="20.3.0.61" />
@@ -17,6 +24,18 @@
     <ProjectReference Include="..\..\Rozklad.Infrastructure\Rozklad.Infrastructure.csproj" />
     <ProjectReference Include="..\..\RozkladClient.Infrastructure\RozkladClient.Infrastructure.csproj" />
     <ProjectReference Include="..\Shared\Rozklad.BlazorApp.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\TimetablePages\Create.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\TimetablePages\Create.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\TimetablePages\Create.razor" />
   </ItemGroup>
 
 </Project>

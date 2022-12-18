@@ -18,8 +18,7 @@ namespace Rozklad.Repository.Dto.TimetableDto
         public string? TimeStart { get; set; }
         [Required]
         public string? TimeEnd { get; set; }
-        [Required]
-        public string? IconPath { get; set; }
+        
         [Required]
         public string? CabinetName { get; set; }
         [Required]

@@ -18,9 +18,25 @@ namespace Rozklad.Repository.Repositories
             _mapper = mapper;
         }
 
+        public async Task<int> CreateAsync(TimetableCreateDto obj)
+        {
+            var data = await _ctx.Timetables.AddAsync(_mapper.Map<Timetable>(obj));
+            await _ctx.SaveChangesAsync();
+            _ctx.Timetables.Find(data.Entity.CabinetId).Cabinet = await _ctx.Cabinets.FirstAsync();
+            _ctx.Timetables.Find(data.Entity.LessonId).Lesson = await _ctx.Lessons.FirstAsync();
+            _ctx.Timetables.Find(data.Entity.LessonId).Week = await _ctx.Weeks.FirstAsync();
+            _ctx.Timetables.Find(data.Entity.LessonId).Lesson.Discipline = await _ctx.Disciplines.FirstAsync();
+            _ctx.Timetables.Find(data.Entity.LessonId).Lesson.Teacher = await _ctx.Teachers.FirstAsync();
+            _ctx.Timetables.Find(data.Entity.LessonId).Lesson.Pupil = await _ctx.Pupils.FirstAsync();
+            _ctx.Timetables.Find(data.Entity.LessonId).Lesson.Pupil.ClassRoom = await _ctx.ClassRooms.FirstAsync();
+
+            await _ctx.SaveChangesAsync();
+            return data.Entity.TimetableId;
+        }
+
         public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
         {
-            return _mapper.Map<IEnumerable<TimetableReadDto>>(await _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.Lesson).ThenInclude(x => x.Discipline)/*.Include(x => x.Lesson.Teacher).Include(x => x.Lesson.Pupil).ThenInclude(x => x.ClassRoom)*/.Include(x => x.Week).ToListAsync());
+            return _mapper.Map<IEnumerable<TimetableReadDto>>(await _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.Lesson).ThenInclude(x => x.Discipline).Include(x => x.Lesson.Teacher).Include(x => x.Lesson.Pupil).ThenInclude(x => x.ClassRoom)/*Include(x => x.Week)*/.ToListAsync());
 
         }
 
@@ -33,14 +49,17 @@ namespace Rozklad.Repository.Repositories
         {
             _ctx.Timetables.Add(timetable);
             await _ctx.SaveChangesAsync();
-            var createdTimetable = _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.Lesson).Include(x => x.Week).FirstOrDefault(x => x.TimetableId == timetable.TimetableId);
+            var createdTimetable = _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.Lesson).Include(x => x.Lesson.Discipline).Include(x => x.Lesson.Teacher).Include(x => x.Lesson.Pupil).Include(x => x.Week).FirstOrDefault(x => x.TimetableId == timetable.TimetableId);
             return new TimetableCreateDto
             {
                 TimetableId = createdTimetable.TimetableId,
                 TimeStart = createdTimetable.TimeStart,
                 TimeEnd = createdTimetable.TimeEnd,
                 LessonNumber = createdTimetable.LessonNumber,
-                
+                DisciplineName = createdTimetable.Lesson.Discipline.DisciplineName,
+                TeacherName = createdTimetable.Lesson.Teacher.TeacherName,
+                PupilName = createdTimetable.Lesson.Pupil.PupilName,    
+                ClassRoomName = createdTimetable.Lesson.Pupil.ClassRoom.ClassRoomName,
                 CabinetName = createdTimetable.Cabinet.CabinetName,
                 LessonName = createdTimetable.Lesson.LessonName, 
                 WeekName = createdTimetable.Week.WeekName

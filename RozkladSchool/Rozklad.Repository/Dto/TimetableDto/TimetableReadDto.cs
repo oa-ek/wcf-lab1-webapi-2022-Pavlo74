@@ -1,7 +1,10 @@
 ﻿
 using Rozklad.Core;
 using Rozklad.Repository.Dto.CabinetDto;
+using Rozklad.Repository.Dto.DisciplineDto;
 using Rozklad.Repository.Dto.LessonDto;
+using Rozklad.Repository.Dto.PupilDto;
+using Rozklad.Repository.Dto.TeacherDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +35,12 @@ namespace Rozklad.Repository.Dto.TimetableDto
         //public string? WeekName { get; set; }
 
         //public WeekReadDto? Week { get; set; }
-
+        //public PupilReadDto Pupil { get; set; }
         //public UserReadDto? User { get; set; }
         //public string? DisciplineName { get; set; }
-
+        //public DisciplineReadDto Discipline { get; set; }
          //public string? TeacherName { get; set; }
-
+         //public TeacherReadDto? Teacher { get; set; }
         // public string? PupilName { get; set; }
 
         // public string? ClassRoomName { get; set; }

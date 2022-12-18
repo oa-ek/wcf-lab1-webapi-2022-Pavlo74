@@ -31,50 +31,50 @@
         @Html.AntiForgeryToken()
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="CabinetName" class="control-label">Cabinet</label>
+            <label asp-for="Cabinet.CabinetName" class="control-label">Cabinet</label>
             <select id="cabinetName" name="cabinetName" class="form-select">
                 @foreach (var u in cabinet)
                 {
-                    var selected = @Model.CabinetName == u.CabinetName ? true : false;
+                    var selected = @Model.Cabinet.CabinetName == u.CabinetName ? true : false;
                     <!option value="@u.CabinetName" @(selected ? "selected" : "" )>@u.CabinetName</!option>
                 }
             </select>
         </div>
 
         <div class="form-group">
-            <label asp-for="DisciplineName" class="control-label">DisciplineName</label>
+            <label asp-for="Lesson.Discipline.DisciplineName" class="control-label">DisciplineName</label>
             <select id="disciplineName" name="disciplineName" class="form-select">
                 @foreach (var u in lesson)
                 {
-                    var selected = @Model.DisciplineName == u.Discipline.DisciplineName ? true : false;
+                    var selected = @Model.Lesson.Discipline.DisciplineName == u.Discipline.DisciplineName ? true : false;
                     <!option value="@u.Discipline.DisciplineName" @(selected ? "selected" : "" )>@u.Discipline.DisciplineName</!option>
                 }
             </select>
         </div>
 
         <div class="form-group">
-            <label asp-for="TeacherName" class="control-label">TeacherName</label>
+            <label asp-for="Lesson.Teacher.TeacherName" class="control-label">TeacherName</label>
             <select id="teacherName" name="teacherName" class="form-select">
                 @foreach (var u in teacher)
                 {
-                    var selected = @Model.TeacherName == u.TeacherName ? true : false;
+                    var selected = @Model.Lesson.Teacher.TeacherName == u.TeacherName ? true : false;
                     <!option value="@u.TeacherName" @(selected ? "selected" : "" )>@u.TeacherName</!option>
                 }
             </select>
         </div>
 
         <div class="form-group">
-            <label asp-for="ClassRoomName" class="control-label">ClassRoomName</label>
-            <input asp-for="ClassRoomName" class="form-control" />
-            <span asp-validation-for="ClassRoomName" class="text-danger"></span>
+            <label asp-for="Pupil.ClassRoom.ClassRoomName" class="control-label">ClassRoomName</label>
+            <input asp-for="Pupil.ClassRoom.ClassRoomName" class="form-control" />
+            <span asp-validation-for="Pupil.ClassRoom.ClassRoomName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="PupilName" class="control-label">PupilName</label>
+            <label asp-for="Pupil.PupilName" class="control-label">PupilName</label>
             <select id="pupilName" name="pupilName" class="form-select" required>
                 @foreach (var u in pupil)
                 {
-                    var selected = @Model.PupilName == u.PupilName ? true : false;
+                    var selected = @Model.Pupil.PupilName == u.PupilName ? true : false;
                     <!option value="@u.PupilName" @(selected ? "selected" : "" )>@u.PupilName</!option>
                 }
             </select>

@@ -8,21 +8,49 @@
 <h3>TimetableGrid</h3>
 
 
-<div class="card-body">
-        <h5 class="card-title">@TimetableRead.TimetableId</h5>
-        <p class="card-text">@((MarkupString)TimetableRead.TimeStart)</p>
 
-        
+@if (TimetableRead == null)
+{
+    <p><em>У вас нульове значення...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>День</th>
+                <th>Дисципліна</th>
+                <th>Кабінет</th>
+                <th> Номер уроку</th>
+                <th>Початок</th>
+                <th>Закінчення</th>
+                <th>Вчитель</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <td>@TimetableRead.TimetableId</td>
+                    <td>@TimetableRead.Day</td>
+                    <td>@TimetableRead.Lesson.Discipline.DisciplineName</td>
+                    <td>@TimetableRead.Cabinet.CabinetName</td>
+                    <td>@TimetableRead.LessonNumber</td>
+                    <td>@TimetableRead.TimeStart</td>
+                    <td>@TimetableRead.TimeEnd</td>
+                    <td>@TimetableRead.Lesson.Teacher.TeacherName</td>
+                </tr>
+            
+        </tbody>
         <hr />
-        
-
         <SfButton IsPrimary="true" OnClick="@GoToDetailsPage">Деталі</SfButton>
-        <SfButton CssClass="e-warning" OnClick="@GoToEditPage">Редагувати</SfButton>       
-    </div>
+        <SfButton CssClass="e-warning" OnClick="@GoToEditPage">Редагувати</SfButton>
+    </table>
+}
 
 @code {
 	[Parameter]
-    public TimetableReadDto? TimetableRead { get; set; }
+    public TimetableReadDto TimetableRead { get; set; }
 
     //private IEnumerable<TimetableReadDto> Timetables = new List<TimetableReadDto>();
 

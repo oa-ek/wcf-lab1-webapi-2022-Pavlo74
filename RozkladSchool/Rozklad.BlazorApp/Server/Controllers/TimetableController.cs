@@ -22,7 +22,7 @@ namespace Rozklad.BlazorApp.Server.Controllers
         private readonly LessonRepository lessonRepository;
         //private readonly UsersRepository usersRepository;
         //private readonly UserManager<User> userManager;
-       // private readonly SignInManager<User> signInManager;
+        // private readonly SignInManager<User> signInManager;
         private readonly ILogger<TimetableController> _logger;
         // private readonly TimetableRepository ctx;
         private readonly TimetableRepository timetableRepository;
@@ -41,7 +41,7 @@ namespace Rozklad.BlazorApp.Server.Controllers
             this.pupilRepository = pupilRepository;
             this.lessonRepository = lessonRepository;
             //this.usersRepository = usersRepository;
-           // this.userManager = userManager;
+            // this.userManager = userManager;
             //this.signInManager = signInManager;
 
         }
@@ -72,77 +72,73 @@ namespace Rozklad.BlazorApp.Server.Controllers
             return Ok(timetableRepository.SearchTimetable(searchText));
         }
 
-        [HttpPost]
-        public async Task<TimetableCreateDto> CreateAsync(Timetable timetable)
+        [HttpPost("/timetable")]
+        //public async Task<int> CreateAsync(TimetableCreateDto timetable)
+        //{
+        //return await timetableRepository.CreateAsync(timetable);
+        //}
+        public async Task<TimetableCreateDto> CreateTimetable(TimetableCreateDto timetableCreateDto)
         {
-         return await timetableRepository.AddTimetableAsync(timetable);
-        }
-        /*public async Task CreateKey(TimetableCreateDto timetableCreateDto, string cabinets, string lessons, string weeks, string users, string disciplines, string pupils, string teachers)
-        {
-            var cabinet = cabinetRepository.GetCabinetByName(cabinets);
+            var cabinet = cabinetRepository.GetCabinetByName(timetableCreateDto.CabinetName);
             if (cabinet == null)
             {
-                cabinet = new Cabinet() { CabinetName = cabinets };
+                cabinet = new Cabinet() { CabinetName = timetableCreateDto.CabinetName };
                 cabinet = await cabinetRepository.AddCabinetAsync(cabinet);
             }
 
-            var lesson = lessonRepository.GetLessonByName(lessons);
+            var lesson = lessonRepository.GetLessonByName(timetableCreateDto.LessonName);
             if (lesson == null)
             {
-                lesson = new Lesson() { LessonName = lessons };
+                lesson = new Lesson() { LessonName = timetableCreateDto.LessonName };
                 lesson = await lessonRepository.AddLessonAsync(lesson);
             }
 
-            var week = weekRepository.GetWeekByName(weeks);
+            var week = weekRepository.GetWeekByName(timetableCreateDto.WeekName);
             if (week == null)
             {
-                week = new Week() { WeekName = weeks };
+                week = new Week() { WeekName = timetableCreateDto.WeekName };
                 week = await weekRepository.AddWeekAsync(week);
             }
 
-            var discipline = disciplineRepository.GetDisciplineByName(disciplines);
+            var discipline = disciplineRepository.GetDisciplineByName(timetableCreateDto.DisciplineName);
             if (discipline == null)
             {
-                discipline = new Discipline() { DisciplineName = disciplines };
+                discipline = new Discipline() { DisciplineName = timetableCreateDto.DisciplineName };
                 discipline = await disciplineRepository.AddDisciplineAsync(discipline);
             }
 
-            var pupil = pupilRepository.GetPupilByName(pupils);
+            var pupil = pupilRepository.GetPupilByName(timetableCreateDto.PupilName);
             if (pupil == null)
             {
-                pupil = new Pupil() { PupilName = pupils };
+                pupil = new Pupil() { PupilName = timetableCreateDto.PupilName };
                 pupil = await pupilRepository.AddPupilAsync(pupil);
             }
 
-            var teacher = teacherRepository.GetTeacherByName(teachers);
+            var teacher = teacherRepository.GetTeacherByName(timetableCreateDto.TeacherName);
             if (teacher == null)
             {
-                teacher = new Teacher() { TeacherName = teachers };
+                teacher = new Teacher() { TeacherName = timetableCreateDto.TeacherName };
                 teacher = await teacherRepository.AddTeacherAsync(teacher);
             }
 
-
-            var user = usersRepository.GetUserByEmail(User.Identity.Name);
-            if (user == null)
-            {
-                user = new User() { Email = User.Identity.Name };
-            }
-
-            var key = await timetableRepository.AddTimetableAsync(new Timetable()
+            var timetable = await timetableRepository.AddTimetableAsync(new Timetable()
             {
                 LessonNumber = timetableCreateDto.LessonNumber,
                 Day = timetableCreateDto.Day,
                 TimeStart = timetableCreateDto.TimeStart,
                 TimeEnd = timetableCreateDto.TimeEnd,
-              
                 Cabinet = cabinet,
                 Lesson = lesson,
+                
                 Week = week,
+                
                 
                 //Discipline = discipline,
             });
-        }*/
+            return timetable;
+        }
 
     }
+
 }
 

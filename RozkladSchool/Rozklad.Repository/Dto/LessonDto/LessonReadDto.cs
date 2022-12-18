@@ -16,11 +16,13 @@ namespace Rozklad.Repository.Dto.LessonDto
         public string? LessonName { get; set; }
         public int Year { get; set; }
         public int DisciplineId { get; set; }
-       // public DisciplineReadDto? Discipline { get; set; }
+        public DisciplineReadDto? Discipline { get; set; }
+        
         public int TeacherId { get; set; }
-        //public TeacherReadDto? Teacher { get; set; }
+        public TeacherReadDto? Teacher { get; set; }
+
         public int PupilId { get; set; }
-        //public PupilReadDto? Pupil { get; set; }
+        public PupilReadDto? Pupil { get; set; }
 
         //public virtual ICollection<Timetable>? Timetables { get; set; }
     }

@@ -14,7 +14,7 @@ namespace Rozklad.Repository.Dto.PupilDto
         public string? PupilName { get; set; }
         public int Year { get; set; }
         public int ClassRoomId { get; set; }
-        //public ClassRoomReadDto? ClassRoom { get; set; }
+        public ClassRoomReadDto? ClassRoom { get; set; }
         public string? IconPath { get; set; }
     }
 }
