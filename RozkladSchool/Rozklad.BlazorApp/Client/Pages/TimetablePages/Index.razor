@@ -12,6 +12,8 @@
 <div class="">
     <a class="btn btn-success" href="/create">Додати дані</a>
 </div>
+
+
 <hr />
 @if(Timetables is not null && Timetables.Any())
 {
@@ -21,6 +23,9 @@
             <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
                 <TimetableGrid TimetableRead ="t"></TimetableGrid>
             </div>
+
+            <a class="btn btn-sm btn-outline-secondary" href="/edit/@t.TimetableId" >Редагувати</a>
+            <a class="btn btn-sm btn-outline-secondary" href="/create" >Додати</a>
         }
     </div>
 }
@@ -47,7 +52,7 @@ else if(Timetables is not null)
 
     void GoToNewRequestPage()
     {
-        Navigation.NavigateTo("/timetables/new");
+        //Navigation.NavigateTo("/timetable/new");
     }
 
     void GoToDetailsPage()

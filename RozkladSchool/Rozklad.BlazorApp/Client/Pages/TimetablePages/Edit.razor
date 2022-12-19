@@ -1,0 +1,53 @@
+﻿@page "/edit/{id:int}"
+@using Rozklad.BlazorApp.Client.Pages.SuccessPages
+@using Rozklad.Repository.Dto.CabinetDto
+@using Rozklad.Repository.Dto.LessonDto
+@using Rozklad.Repository.Dto.TimetableDto
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inject IModalService modal
+
+<h3>Редагувати ключ</h3>
+<hr />
+	<EditForm Model="timetable" OnValidSubmit="EditKey">
+ <DataAnnotationsValidator />
+ <div>
+		<div class="row">
+				<div class="col-12">
+					<ValidationMessage For="() => timetable.LessonNumber" />
+					<label for="number">LessonNumber</label>
+				</div>
+				<div class="col-12">
+					<InputNumber id="number" @bind-Value="timetable.LessonNumber"/>
+				</div>
+			</div>
+	</div>
+	</EditForm>
+
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+
+	TimetableCreateDto timetable = new TimetableCreateDto();
+
+	List<CabinetCreateDto> cabinets = new List<CabinetCreateDto>();
+	List<LessonCreateDto> lessons = new List<LessonCreateDto>();
+	List<WeekCreateDto> weeks = new List<WeekCreateDto>();
+	protected override async Task OnInitializedAsync()
+	{
+		timetable = await Http.GetFromJsonAsync<TimetableCreateDto>($"/timetables/{Id}");
+		cabinets = await Http.GetFromJsonAsync<List<CabinetCreateDto>>("/cabinets");
+		lessons = await Http.GetFromJsonAsync<List<LessonCreateDto>>("/lessons");
+	}
+
+	
+	public async Task EditKey()
+	{
+		var result = await Http.PutAsJsonAsync("/timetables", timetable);
+		if (result.IsSuccessStatusCode)
+		{
+			modal.Show<Edited>("");
+		}
+	}
+}

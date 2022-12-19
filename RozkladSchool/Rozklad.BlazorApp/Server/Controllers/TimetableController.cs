@@ -40,15 +40,12 @@ namespace Rozklad.BlazorApp.Server.Controllers
             this.teacherRepository = teacherRepository;
             this.pupilRepository = pupilRepository;
             this.lessonRepository = lessonRepository;
-            //this.usersRepository = usersRepository;
-            // this.userManager = userManager;
-            //this.signInManager = signInManager;
-
+            
         }
 
 
 
-        [HttpGet("/timetable")]
+        [HttpGet("/timetables")]
         public async Task<IActionResult> GetListAsync()
         {
             return Ok(await timetableRepository.GetListAsync());
@@ -72,11 +69,11 @@ namespace Rozklad.BlazorApp.Server.Controllers
             return Ok(timetableRepository.SearchTimetable(searchText));
         }
 
-        [HttpPost("/timetable")]
+        //[HttpPost("/timetables")]
         //public async Task<int> CreateAsync(TimetableCreateDto timetable)
         //{
         //return await timetableRepository.CreateAsync(timetable);
-        //}
+       // }
         public async Task<TimetableCreateDto> CreateTimetable(TimetableCreateDto timetableCreateDto)
         {
             var cabinet = cabinetRepository.GetCabinetByName(timetableCreateDto.CabinetName);
@@ -129,7 +126,6 @@ namespace Rozklad.BlazorApp.Server.Controllers
                 TimeEnd = timetableCreateDto.TimeEnd,
                 Cabinet = cabinet,
                 Lesson = lesson,
-                
                 Week = week,
                 
                 

@@ -18,7 +18,7 @@ namespace Rozklad.Repository.Repositories
             _mapper = mapper;
         }
 
-        public async Task<int> CreateAsync(TimetableCreateDto obj)
+        /*public async Task<int> CreateAsync(TimetableCreateDto obj)
         {
             var data = await _ctx.Timetables.AddAsync(_mapper.Map<Timetable>(obj));
             await _ctx.SaveChangesAsync();
@@ -32,7 +32,7 @@ namespace Rozklad.Repository.Repositories
 
             await _ctx.SaveChangesAsync();
             return data.Entity.TimetableId;
-        }
+        }*/
 
         public async Task<IEnumerable<TimetableReadDto>> GetListAsync()
         {
@@ -104,8 +104,14 @@ namespace Rozklad.Repository.Repositories
                     TimetableId = timetable.TimetableId,
                     LessonNumber = timetable.LessonNumber,
                     TimeStart = timetable.TimeStart,
+                    Day = timetable.Day,    
                     CabinetName = timetable.Cabinet.CabinetName,
                     WeekName = timetable.Week.WeekName,
+                    TeacherName = timetable.Lesson.Teacher.TeacherName,
+                    DisciplineName = timetable.Lesson.Discipline.DisciplineName,
+                    PupilName = timetable.Lesson.Pupil.PupilName,
+                    ClassRoomName = timetable.Lesson.Pupil.ClassRoom.ClassRoomName,
+                    LessonName = timetable.Lesson.LessonName
                     
                 });
             }
@@ -197,7 +203,7 @@ namespace Rozklad.Repository.Repositories
         public List<TimetableCreateDto> SearchTimetable(string searchText)
         {
             return GetTimetablesDto().
-                Where(x => x.LessonNumber.ToString().Contains(searchText.ToLower()) || x.TimeStart.ToLower().Contains(searchText.ToLower()) || x.TimeEnd.ToString().Contains(searchText.ToLower())).ToList();
+                Where(x => x.CabinetName.ToLower().Contains(searchText.ToLower()) || x.Day.ToLower().Contains(searchText.ToLower()) || x.TeacherName.ToString().Contains(searchText.ToLower())).ToList();
         }
     }
 }

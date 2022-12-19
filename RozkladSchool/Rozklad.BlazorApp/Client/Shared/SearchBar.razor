@@ -1,0 +1,37 @@
+﻿@using Rozklad.Repository.Dto.TimetableDto
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+        <BlazoredTypeahead SearchMethod="@SearchKey" 
+                            TValue="TimetableCreateDto"
+                            TItem="TimetableCreateDto"
+                            Value="selectedKey"
+                            ValueChanged="HandleSearch"
+                            ValueExpression="@(()=>selectedKey)">
+            <SelectedTemplate>
+                @context.CabinetName
+            </SelectedTemplate>
+            <ResultTemplate>
+                @context.CabinetName
+            </ResultTemplate>
+            <NotFoundTemplate>
+                Вибачте, не вдалося нічого знайти :(
+            </NotFoundTemplate>
+        </BlazoredTypeahead>
+
+@code {
+    private TimetableCreateDto selectedKey;
+
+    private async Task<IEnumerable<TimetableCreateDto>> SearchKey(string searchText)
+    {
+        var response = await Http.GetFromJsonAsync<List<TimetableCreateDto>>($"timetable/search/{searchText}");
+        return response;
+    }
+
+    private void HandleSearch(TimetableCreateDto key)
+    {
+        if (key == null) return;
+        selectedKey = key;
+        Navigation.NavigateTo($"/details/{selectedKey.TimetableId}");
+    }
+}

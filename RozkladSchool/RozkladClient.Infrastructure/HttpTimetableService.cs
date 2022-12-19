@@ -1,4 +1,7 @@
 ﻿using Rozklad.Core;
+using Rozklad.Repository.Dto;
+using Rozklad.Repository.Dto.CabinetDto;
+using Rozklad.Repository.Dto.LessonDto;
 using Rozklad.Repository.Dto.TimetableDto;
 using System;
 using System.Collections.Generic;
@@ -16,14 +19,23 @@ namespace RozkladClient.Infrastructure
 
         public async Task<IEnumerable<TimetableReadDto>> GetTimetablesAsync()
         {
-           return await httpClient.GetFromJsonAsync<IEnumerable<TimetableReadDto>>("/timetable");
+           return await httpClient.GetFromJsonAsync<IEnumerable<TimetableReadDto>>("/timetables");
         }
 
-        //public async Task<int> CreateTimetablesAsync(TimetableCreateDto time)
-        //{
-           // var msg = await httpClient.PostAsJsonAsync<TimetableCreateDto>("/api/timetables", time);
-            //return int.Parse(await msg.Content.ReadAsStringAsync());
-        //}
+        public async Task<IEnumerable<CabinetReadDto>> GetCabinetsAsync()
+        {
+            return await httpClient.GetFromJsonAsync<IEnumerable<CabinetReadDto>>("/cabinets");
+        }
+
+        public async Task<IEnumerable<LessonReadDto>> GetLessonsAsync()
+        {
+            return await httpClient.GetFromJsonAsync<IEnumerable<LessonReadDto>>("/lessons");
+        }
+
+        public async Task<IEnumerable<WeekReadDto>> GetWeeksAsync()
+        {
+            return await httpClient.GetFromJsonAsync<IEnumerable<WeekReadDto>>("/weeks");
+        }
 
         public async Task<TimetableReadDto> GetAsync(int id)
         {

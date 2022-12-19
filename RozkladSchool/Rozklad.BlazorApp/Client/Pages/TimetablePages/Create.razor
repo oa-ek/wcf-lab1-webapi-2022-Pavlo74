@@ -1,66 +1,56 @@
 ﻿@page "/create"
 @using Rozklad.Repository.Dto.CabinetDto
+@using Rozklad.Repository.Dto.LessonDto
 @using Rozklad.Repository.Dto.TimetableDto
-@using System.Net.Http.Json
-@using Rozklad.Repository
 @inject HttpClient Http
 @inject NavigationManager Navigation
-<h3>Create</h3>
 
-<EditForm Model="timetable" OnValidSubmit="CreateTimetable">
+<h3>Створити ключ</h3>
+<hr />
+	<EditForm Model="timetable" OnValidSubmit="CreateTimetable">
  <DataAnnotationsValidator />
 
  <div>
 			<div class="row">
 				<div class="col-12">
-					<ValidationMessage For="() => timetable.TimetableId" />
-					<label for="id">TimetableId</label>
-				</div>
-				<div class="col-12">
-					<InputNumber id="id" @bind-Value="timetable.TimetableId"/>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-12">
 					<ValidationMessage For="() => timetable.LessonNumber" />
-					<label for="number">LessonNumber</label>
+					<label for="name">LessonNumber</label>
 				</div>
 				<div class="col-12">
-					<InputNumber id="number" @bind-Value="timetable.LessonNumber"/>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-12">
-					<ValidationMessage For="() => timetable.Day" />
-					<label for="day">Day</label>
-				</div>
-				<div class="col-12">
-					<InputNumber id="day" @bind-Value="timetable.Day"/>
+					<InputNumber id="name" @bind-Value="timetable.LessonNumber"/>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-12">
 					<ValidationMessage For="() => timetable.TimeStart" />
-					<label for="start">TimeStart</label>
+					<label for="description">TimetStart</label>
 				</div>
 				<div class="col-12">
-					<InputNumber id="start" @bind-Value="timetable.TimeStart"/>
+					<InputText id="description" @bind-Value="timetable.TimeStart"/>
 				</div>
 			</div>
-
+			
 			<div class="row">
 				<div class="col-12">
 					<ValidationMessage For="() => timetable.TimeEnd" />
-					<label for="end">TimeEnd</label>
+					<label for="description">TimeEnd</label>
 				</div>
 				<div class="col-12">
-					<InputNumber id="end" @bind-Value="timetable.TimeEnd"/>
+					<InputText id="description" @bind-Value="timetable.TimeEnd"/>
 				</div>
 			</div>
-
+			
+			<div class="row">
+				<div class="col-12">
+					<ValidationMessage For="() => timetable.Day" />
+					<label for="description">Day</label>
+				</div>
+				<div class="col-12">
+					<InputText id="description" @bind-Value="timetable.Day"/>
+				</div>
+			</div>
+			
 			<div class="row">
 				<div class="col-12">
 					<ValidationMessage For="() => timetable.CabinetName" />
@@ -75,21 +65,105 @@
 					</InputSelect>
 				</div>
 			</div>
+
+			<div class="row">
+				<div class="col-12">
+					<ValidationMessage For="() => timetable.LessonName" />
+					<label for="brand">Lesson</label>
+				</div>
+				<div class="col-12">
+					<InputSelect id="brands" @bind-Value="timetable.LessonName">
+						@foreach (var b in lesson)
+						{
+							<option value="@b.LessonName">@b.LessonName</option>
+						}
+					</InputSelect>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+					<ValidationMessage For="() => timetable.DisciplineName" />
+					<label for="brand">Discipline</label>
+				</div>
+				<div class="col-12">
+					<InputSelect id="brands" @bind-Value="timetable.DisciplineName">
+						@foreach (var b in lesson)
+						{
+							<option value="@b.Discipline.DisciplineName">@b.Discipline.DisciplineName</option>
+						}
+					</InputSelect>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+					<ValidationMessage For="() => timetable.TeacherName" />
+					<label for="brand">Teacher</label>
+				</div>
+				<div class="col-12">
+					<InputSelect id="brands" @bind-Value="timetable.TeacherName">
+						@foreach (var b in lesson)
+						{
+							<option value="@b.Teacher.TeacherName">@b.Teacher.TeacherName</option>
+						}
+					</InputSelect>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+					<ValidationMessage For="() => timetable.WeekName" />
+					<label for="brand">Week</label>
+				</div>
+				<div class="col-12">
+					<InputSelect id="brands" @bind-Value="timetable.WeekName">
+						@foreach (var b in week)
+						{
+							<option value="@b.WeekName">@b.WeekName</option>
+						}
+					</InputSelect>
+				</div>
+			</div>
+
 			<div class="col-12">
 			<button type="submit" class="btn btn-success">Створити</button>
 			</div>
 	</div>
- </EditForm>
-
-@code {
+	 
+	 </EditForm>
+	 @code {
 	TimetableCreateDto timetable = new TimetableCreateDto();
 	
 	List<CabinetCreateDto> cabinet = new List<CabinetCreateDto>();
+	List<LessonCreateDto> lesson = new List<LessonCreateDto>();
+	List<WeekCreateDto> week = new List<WeekCreateDto>();
 	protected override async Task OnInitializedAsync()
 	{
-		cabinet = await Http.GetFromJsonAsync<List<CabinetCreateDto>>("api/cabinet");
+		cabinet = await Http.GetFromJsonAsync<List<CabinetCreateDto>>("/cabinets");
+		lesson = await Http.GetFromJsonAsync<List<LessonCreateDto>>("/lessons");
+		week = await Http.GetFromJsonAsync<List<WeekCreateDto>>("/weeks");
 	}
+	//SfToast sfToast;
 
+   // async Task OnValidSubmit()
+    //{
+       // var id = await TimetableService.CreateTimetablesAsync(timetable);
+                
+        //await sfToast.ShowAsync(new ToastModel
+           // {
+                //Title = "Ура!",
+                //Content = $"Дані збережено! Ви будете перенаправдені на сторінку редагування",
+                //CssClass = "e-toast-success",
+               // Icon = "e-success toast-icons"
+           // });        
+            
+           // await Task.Delay(1000);
+
+       // Navigation.NavigateTo($"/timetable/edit/{id}");
+
+        //StateHasChanged();
+    //}
 	public async Task CreateTimetable(){
 		var result = await Http.PostAsJsonAsync("/timetable", timetable);
 		if (result.IsSuccessStatusCode)
@@ -101,4 +175,3 @@
 
 	}
 }
-
