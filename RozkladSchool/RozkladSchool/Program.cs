@@ -34,6 +34,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<UsersRepository>();
 builder.Services.AddTransient<ClassRoomRepository>();
+builder.Services.AddTransient<WeekRepository>();
 builder.Services.AddTransient<LessonRepository>();
 builder.Services.AddTransient<CabinetRepository>();
 //builder.Services.AddScoped<CabinetAPIRepository>();

@@ -17,6 +17,7 @@
     var lesson = ViewBag.Lessons as IEnumerable<Lesson>;
     var pupil = ViewBag.Pupils as IEnumerable<Pupil>;
     var teacher = ViewBag.Teachers as IEnumerable<Teacher>;
+    var week = ViewBag.Weeks as IEnumerable<Week>;
     Layout = "/Views/Shared/_DashminBlankLayout.cshtml";
     
 }
@@ -100,7 +101,19 @@
             <span asp-validation-for="ClassRoomName" class="text-danger"></span>
         </div>
 
-        
+
+        <div class="form-group">
+            <label asp-for="WeekName" class="control-label">Тиждень</label>
+            <select asp-for="WeekName" name="weekName" id="weekName" class="form-select" required>
+                <option selected disabled>Choose...</option>
+
+                @foreach (var u in week)
+                {
+                    <option value="@u.WeekName">@u.WeekName</option>
+                }
+            </select>
+            <span asp-validation-for="WeekName" class="text-danger"></span>
+        </div>
         
 
         <div class="form-group">

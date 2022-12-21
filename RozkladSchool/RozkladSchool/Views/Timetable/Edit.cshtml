@@ -64,17 +64,17 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="Pupil.ClassRoom.ClassRoomName" class="control-label">ClassRoomName</label>
-            <input asp-for="Pupil.ClassRoom.ClassRoomName" class="form-control" />
-            <span asp-validation-for="Pupil.ClassRoom.ClassRoomName" class="text-danger"></span>
+            <label asp-for="Lesson.Pupil.ClassRoom.ClassRoomName" class="control-label">ClassRoomName</label>
+            <input asp-for="Lesson.Pupil.ClassRoom.ClassRoomName" class="form-control" />
+            <span asp-validation-for="Lesson.Pupil.ClassRoom.ClassRoomName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Pupil.PupilName" class="control-label">PupilName</label>
+            <label asp-for="Lesson.Pupil.PupilName" class="control-label">PupilName</label>
             <select id="pupilName" name="pupilName" class="form-select" required>
                 @foreach (var u in pupil)
                 {
-                    var selected = @Model.Pupil.PupilName == u.PupilName ? true : false;
+                    var selected = @Model.Lesson.Pupil.PupilName == u.PupilName ? true : false;
                     <!option value="@u.PupilName" @(selected ? "selected" : "" )>@u.PupilName</!option>
                 }
             </select>

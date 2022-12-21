@@ -95,7 +95,7 @@ namespace Rozklad.Repository.Repositories
 
         public List<TimetableCreateDto> GetTimetablesDto()
         {
-            var timetableList = _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.Week).Include(x => x.User).ToList();
+            var timetableList = _ctx.Timetables.Include(x => x.Cabinet).Include(x => x.Lesson).ThenInclude(x => x.Discipline).Include(x => x.Lesson.Teacher).Include(x => x.Lesson.Pupil).ThenInclude(x => x.ClassRoom).Include(x => x.Week).Include(x => x.User).ToList();
             var timetableListDto = new List<TimetableCreateDto>();
             foreach (var timetable in timetableList)
             {
@@ -203,7 +203,7 @@ namespace Rozklad.Repository.Repositories
         public List<TimetableCreateDto> SearchTimetable(string searchText)
         {
             return GetTimetablesDto().
-                Where(x => x.CabinetName.ToLower().Contains(searchText.ToLower()) || x.Day.ToLower().Contains(searchText.ToLower()) || x.TeacherName.ToString().Contains(searchText.ToLower())).ToList();
+                Where(x => x.TimeStart.ToLower().Contains(searchText.ToLower()) || x.Day.ToLower().Contains(searchText.ToLower()) || x.TimeEnd.ToLower().Contains(searchText.ToLower())).ToList();
         }
     }
 }

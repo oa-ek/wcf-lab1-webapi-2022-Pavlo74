@@ -69,11 +69,16 @@ namespace Rozklad.BlazorApp.Server.Controllers
             return Ok(timetableRepository.SearchTimetable(searchText));
         }
 
-        //[HttpPost("/timetables")]
+        //[HttpPut]
+        //public async Task Edit(TimetableCreateDto tim)
+        //{
+            //await timetableRepository.UpdateAsync(tim);
+        //}
+        [HttpPost("/timetables")]
         //public async Task<int> CreateAsync(TimetableCreateDto timetable)
         //{
         //return await timetableRepository.CreateAsync(timetable);
-       // }
+        // }
         public async Task<TimetableCreateDto> CreateTimetable(TimetableCreateDto timetableCreateDto)
         {
             var cabinet = cabinetRepository.GetCabinetByName(timetableCreateDto.CabinetName);

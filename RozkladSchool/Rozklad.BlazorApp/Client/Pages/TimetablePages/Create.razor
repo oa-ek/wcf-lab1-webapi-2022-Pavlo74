@@ -1,4 +1,5 @@
 ﻿@page "/create"
+@using Rozklad.Core
 @using Rozklad.Repository.Dto.CabinetDto
 @using Rozklad.Repository.Dto.LessonDto
 @using Rozklad.Repository.Dto.TimetableDto
@@ -63,6 +64,7 @@
 							<option value="@b.Name">@b.Name</option>
 						}
 					</InputSelect>
+					<span asp-validation-for="CabinetName" class="text-danger"></span>
 				</div>
 			</div>
 
@@ -174,4 +176,6 @@
 
 
 	}
+
+	
 }

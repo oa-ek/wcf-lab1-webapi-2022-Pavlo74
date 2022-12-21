@@ -122,7 +122,7 @@ namespace RozkladSchool.Controllers
                 user = new User() { Email = User.Identity.Name };
             }
 
-            /*var timetable = await _timetableRepository.AddTimetableAsync(new Timetable
+            var timetable = await _timetableRepository.AddTimetableAsync(new Timetable
             {
                 Cabinet = cabinet,
                 Lesson = lesson,
@@ -133,8 +133,8 @@ namespace RozkladSchool.Controllers
                 TimeEnd = timetableDto.TimeEnd,
                 User = user
 
-            });*/
-            //return RedirectToAction("Index", "Timetable", new { id = timetable.TimetableId });
+            });
+            return RedirectToAction("Index", "Timetable", new { id = timetable.TimetableId });
 
             return View(timetableDto);
         }

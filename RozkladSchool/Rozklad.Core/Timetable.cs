@@ -25,6 +25,12 @@ namespace Rozklad.Core
         public int LessonId { get; set; }
         public Lesson? Lesson { get; set; }
 
+        public int DisciplineId { get; set; }
+        public Discipline? Discipline { get; set; }
+
+        public int TeacherId { get; set; }
+        public Teacher? Teacher { get; set; }
+
         public int WeekId { get; set; }
         public Week? Week { get; set; }
 

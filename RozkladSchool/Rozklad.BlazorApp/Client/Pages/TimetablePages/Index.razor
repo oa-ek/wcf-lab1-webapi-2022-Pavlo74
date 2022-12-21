@@ -10,7 +10,7 @@
 @inject NavigationManager Navigation
 <h4>Предмети</h4>
 <div class="">
-    <a class="btn btn-success" href="/create">Додати дані</a>
+    <a class="btn btn-outline-success m-2" href="/create">Додати дані</a>
 </div>
 
 
@@ -20,13 +20,14 @@
     <div class="row">
         @foreach (var t in Timetables)
         {
-            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+            <div class="col-sm-15 col-xl-8">
                 <TimetableGrid TimetableRead ="t"></TimetableGrid>
             </div>
-
-            <a class="btn btn-sm btn-outline-secondary" href="/edit/@t.TimetableId" >Редагувати</a>
-            <a class="btn btn-sm btn-outline-secondary" href="/create" >Додати</a>
+            
+            
         }
+        @*<a class="btn btn-sm btn-outline-secondary" href="/edit/TimetableId" >Редагувати</a>*@
+            @*<a class="btn btn-sm btn-outline-secondary" href="/delete" >Видалити</a>*@
     </div>
 }
     
